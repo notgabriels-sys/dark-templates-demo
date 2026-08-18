@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Your App</title>
+<meta name="description" content="Sign in screen.">
+<!-- EDIT: product name, provider buttons, and the form action. Colors in :root. -->
+<style>
+  :root{
+    --bg:#0a0b0d; --surface:#131519; --hair:#22252b;
+    --ink:#ECEEF0; --mute:#8b9099; --faint:#5f646c;
+    --accent:#9D6BFF; --accent-2:#C6A8FF; --accent-dim:#3c2a6b;
+    --sans:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:
+      radial-gradient(720px 420px at 50% -10%, rgba(157,107,255,.16), transparent 70%),
+      var(--bg);
+    color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+    display:grid;place-items:center;padding:clamp(28px,6vw,56px) 20px;line-height:1.55}
+  a{color:inherit}
+  .card{width:100%;max-width:400px}
+  .mark{width:42px;height:42px;border-radius:12px;margin:0 auto 22px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-dim));
+    display:grid;place-items:center;font-weight:800;color:#0a0b0d;font-size:19px}
+  h1{font-size:25px;font-weight:800;letter-spacing:-.02em;text-align:center}
+  .sub{color:var(--mute);font-size:14.5px;text-align:center;margin-top:7px}
+
+  .oauth{display:grid;gap:9px;margin-top:26px}
+  .oauth button{display:flex;align-items:center;justify-content:center;gap:9px;
+    width:100%;padding:11px;border-radius:10px;background:var(--surface);
+    border:1px solid var(--hair);color:var(--ink);font:inherit;font-size:14.5px;
+    font-weight:600;cursor:pointer;transition:.15s}
+  .oauth button:hover{border-color:var(--accent);background:#181b21}
+  .ic{width:16px;height:16px;flex:none;border-radius:4px;background:var(--mute)}
+
+  .sep{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--faint);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.1em}
+  .sep::before,.sep::after{content:"";flex:1;height:1px;background:var(--hair)}
+
+  form{display:grid;gap:14px}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  input{width:100%;padding:11px 13px;border-radius:10px;background:var(--surface);
+    border:1px solid var(--hair);color:var(--ink);font:inherit;font-size:14.5px}
+  input::placeholder{color:var(--faint)}
+  input:focus{outline:2px solid var(--accent);outline-offset:2px;border-color:transparent}
+  .row{display:flex;justify-content:space-between;align-items:center}
+  .row a{color:var(--accent-2);text-decoration:none;font-size:12.5px}
+  .row a:hover{text-decoration:underline}
+  .submit{width:100%;padding:12px;border-radius:10px;border:0;background:var(--accent);
+    color:#0a0b0d;font:inherit;font-size:15px;font-weight:750;cursor:pointer;transition:.15s}
+  .submit:hover{transform:translateY(-1px)}
+  .foot{text-align:center;color:var(--mute);font-size:13.5px;margin-top:22px}
+  .foot a{color:var(--accent-2);text-decoration:none;font-weight:600}
+  .legal{text-align:center;color:var(--faint);font-size:11.5px;margin-top:26px;line-height:1.6}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="mark">◆</div> <!-- EDIT: logo -->
+  <h1>Welcome back</h1>
+  <p class="sub">Sign in to continue to Meridian</p> <!-- EDIT -->
+
+  <div class="oauth">
+    <button type="button"><span class="ic"></span>Continue with Google</button>
+    <button type="button"><span class="ic"></span>Continue with GitHub</button>
+  </div>
+
+  <div class="sep">OR</div>
+
+  <form onsubmit="event.preventDefault()">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+    <div>
+      <div class="row"><label for="pw">Password</label><a href="#">Forgot?</a></div>
+      <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password" required>
+    </div>
+    <button class="submit" type="submit">Sign in</button>
+  </form>
+
+  <p class="foot">New here? <a href="#">Create an account</a></p>
+  <p class="legal">By continuing you agree to the Terms of Service<br>and Privacy Policy.</p>
+</main>
+</body>
+</html>

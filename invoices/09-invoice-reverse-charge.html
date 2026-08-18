@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invoice — EU reverse charge — Dark Business Documents</title>
+<link rel="stylesheet" href="invoice.css">
+</head>
+<body>
+<p class="hint">Cmd/Ctrl + P → Save as PDF → Background graphics OFF</p>
+
+<div class="page">
+  <div class="top">
+    <div>
+      <div class="brand"><span class="mark"></span>Your Studio</div>
+      <div class="from">
+        Your Studio GmbH<br>
+        Musterstraße 12<br>
+        10115 Berlin, Germany<br>
+        VAT ID: DE123456789
+      </div>
+    </div>
+    <div class="doctype">
+      <h1>Invoice</h1>
+      <div class="no">INV-2026-015</div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div><div class="k">Issue date</div><div class="v mono">18 Aug 2026</div></div>
+    <div><div class="k">Due date</div><div class="v mono">17 Sep 2026</div></div>
+    <div><div class="k">Terms</div><div class="v">Net 30</div></div>
+    <div><div class="k">VAT</div><div class="v"><span class="pill">Reverse charge</span></div></div>
+  </div>
+
+  <div class="parties">
+    <div class="party">
+      <div class="k">Billed to</div>
+      <div class="name">Voorbeeld B.V.</div>
+      <div class="addr">
+        Attn: Finance<br>
+        Keizersgracht 210<br>
+        1016 DW Amsterdam, Netherlands<br>
+        VAT ID: NL001234567B01
+      </div>
+    </div>
+    <div class="party">
+      <div class="k">Supply</div>
+      <div class="name">Design &amp; development services</div>
+      <div class="addr">
+        Place of supply: Netherlands<br>
+        B2B, both parties VAT registered<br>
+        Contract: MSA-2026-07
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="desc">Description</th>
+        <th class="num">Qty</th>
+        <th class="num">Rate</th>
+        <th class="num">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="desc">Design system definition
+          <small>Tokens, components, documentation site</small></td>
+        <td class="num">38</td><td class="num">€110.00</td><td class="num total">€4,180.00</td>
+      </tr>
+      <tr>
+        <td class="desc">Component library build
+          <small>24 components, tested, published to npm</small></td>
+        <td class="num">62</td><td class="num">€110.00</td><td class="num total">€6,820.00</td>
+      </tr>
+      <tr>
+        <td class="desc">Team handover workshop
+          <small>Two sessions, recorded, with written guide</small></td>
+        <td class="num">6</td><td class="num">€110.00</td><td class="num total">€660.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sum">
+    <div class="row"><span>Net total</span><span>€11,660.00</span></div>
+    <div class="row"><span>VAT 0% (reverse charge)</span><span>€0.00</span></div>
+    <div class="row grand"><span>Total due</span><span>€11,660.00</span></div>
+  </div>
+
+  <div class="blocks">
+    <div class="block">
+      <div class="k">VAT — reverse charge</div>
+      <p>VAT is not charged. The recipient is liable to account for VAT under the
+         reverse-charge procedure (<strong>Art. 196 EU VAT Directive 2006/112/EC</strong>).
+         Both VAT identification numbers are stated on this invoice, as required.</p>
+    </div>
+    <div class="block">
+      <div class="k">Payment details</div>
+      <div class="kv">
+        Bank: <b>Berliner Sparkasse</b><br>
+        IBAN: <b>DE02 1005 0000 0123 4567 89</b><br>
+        BIC: <b>BELADEBEXXX</b><br>
+        Reference: <b>INV-2026-015</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Your Studio GmbH · Musterstraße 12, 10115 Berlin · hello@yourstudio.example · VAT ID DE123456789<br>
+    Confirm the correct VAT treatment for your own supplies with your accountant before issuing.
+  </div>
+</div>
+</body>
+</html>

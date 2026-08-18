@@ -1,0 +1,128 @@
+/* Dark Slide Templates — shared stylesheet
+   16:9 slides. Dark on screen, dark in the PDF (decks are shown on screens, not printed on paper).
+   Export: Cmd/Ctrl+P → Save as PDF → Layout Landscape → Margins None → Background graphics ON.
+   Note this is the OPPOSITE of the invoice/résumé packs: a deck keeps its background. */
+
+:root{
+  --bg:#08090b; --slide:#101216; --slide-2:#15181e; --hair:#252b34;
+  --ink:#F2F4F6; --muted:#98a0ab; --faint:#6a7280;
+  --accent:#4C82F7; --accent-2:#7A5AF8; --good:#3FB984; --warn:#E0A33E;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--font);color:var(--ink);
+     display:flex;flex-direction:column;align-items:center;gap:26px;padding:40px 16px;
+     -webkit-font-smoothing:antialiased}
+.hint{color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:1.5px;
+      text-transform:uppercase;text-align:center}
+
+/* ---- the slide ---- */
+.slide{position:relative;width:297mm;height:167mm;background:var(--slide);
+       border:1px solid var(--hair);border-radius:6px;overflow:hidden;
+       padding:20mm 22mm;display:flex;flex-direction:column;justify-content:center}
+/* .center is kept as an explicit alias — every slide centres its content block,
+   which keeps short and long slides optically consistent. */
+.slide.center{justify-content:center}
+.slide.top{justify-content:flex-start}
+.slide.alt{background:var(--slide-2)}
+
+/* slide furniture */
+.eyebrow{font-family:var(--mono);font-size:10.5pt;letter-spacing:3.4px;text-transform:uppercase;
+         color:var(--accent);font-weight:600}
+.slide h1{font-size:44pt;line-height:1.02;letter-spacing:-1.8px;font-weight:800;margin-top:6mm}
+.slide h2{font-size:28pt;line-height:1.08;letter-spacing:-1px;font-weight:800}
+.slide h3{font-size:14pt;font-weight:700;letter-spacing:-.2px}
+.lead{margin-top:6mm;font-size:15pt;line-height:1.5;color:var(--muted);max-width:62ch}
+.slide p{font-size:12.5pt;line-height:1.55;color:var(--muted)}
+.num{position:absolute;right:12mm;bottom:9mm;font-family:var(--mono);font-size:9pt;color:var(--faint)}
+.tag{position:absolute;left:22mm;bottom:9mm;font-family:var(--mono);font-size:9pt;color:var(--faint)}
+.rule{width:52pt;height:3pt;background:var(--accent);border-radius:2pt;margin-top:7mm}
+
+/* layouts */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14mm;margin-top:9mm}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:10mm;margin-top:10mm}
+.cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:8mm;margin-top:10mm}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center}
+
+/* cards */
+.card{border:1px solid var(--hair);border-radius:8px;padding:8mm 8mm 9mm}
+.card .k{font-family:var(--mono);font-size:9.5pt;color:var(--accent);letter-spacing:1.6px;text-transform:uppercase}
+.card h3{margin-top:4mm}
+.card p{margin-top:3mm;font-size:11.5pt}
+
+/* big numbers */
+.stat .v{font-size:40pt;font-weight:800;letter-spacing:-2px;line-height:1}
+.stat .v.g{color:var(--good)} .stat .v.a{color:var(--accent)}
+.stat .l{margin-top:3mm;font-size:11pt;color:var(--muted);line-height:1.45}
+
+/* bullets */
+ul.list{margin-top:8mm;list-style:none}
+ul.list li{position:relative;padding-left:9mm;margin-bottom:5.5mm;font-size:13.5pt;
+           line-height:1.5;color:var(--muted)}
+ul.list li b{color:var(--ink);font-weight:700}
+ul.list li::before{content:"";position:absolute;left:0;top:2.6mm;width:3.6mm;height:3.6mm;
+                   border:1.6pt solid var(--accent);border-radius:1pt;transform:rotate(45deg)}
+
+/* bar chart */
+.chart{margin-top:10mm;display:flex;align-items:flex-end;gap:8mm;height:56mm}
+.chart .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3mm}
+.chart .bar{width:100%;background:linear-gradient(180deg,var(--accent),rgba(76,130,247,.35));
+            border-radius:4px 4px 0 0}
+.chart .cap{font-family:var(--mono);font-size:9pt;color:var(--faint)}
+.chart .val{font-size:11pt;font-weight:700}
+
+/* timeline */
+.timeline{margin-top:11mm;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:4.2mm;height:1px;background:var(--hair)}
+.tl{position:relative;padding-right:8mm}
+.tl .dot{width:8.4mm;height:8.4mm;border:2pt solid var(--accent);border-radius:50%;
+         background:var(--slide);position:relative;z-index:1}
+.tl .when{margin-top:5mm;font-family:var(--mono);font-size:9.5pt;color:var(--accent)}
+.tl h3{margin-top:2mm;font-size:12.5pt}
+.tl p{margin-top:2mm;font-size:10.5pt}
+
+/* table */
+table{width:100%;border-collapse:collapse;margin-top:9mm}
+th{text-align:left;font-family:var(--mono);font-size:9.5pt;letter-spacing:1.4px;text-transform:uppercase;
+   color:var(--faint);font-weight:600;padding-bottom:4mm;border-bottom:1px solid var(--hair)}
+td{padding:4.6mm 0;font-size:12pt;border-bottom:1px solid var(--hair);color:var(--muted)}
+td.y{color:var(--good);font-weight:700}
+td.n{color:var(--faint)}
+td:first-child{color:var(--ink);font-weight:600}
+th.c,td.c{text-align:center}
+
+/* quote */
+.quote{font-size:26pt;line-height:1.28;letter-spacing:-.8px;font-weight:700;max-width:24ch}
+.quote .mark{color:var(--accent)}
+.by{margin-top:8mm;font-size:12pt;color:var(--muted)}
+.by b{color:var(--ink)}
+
+/* team */
+.person{text-align:left}
+.person .av{width:20mm;height:20mm;border-radius:50%;border:1.6pt solid var(--hair);
+            display:flex;align-items:center;justify-content:center;font-size:15pt;font-weight:800;color:var(--accent)}
+.person h3{margin-top:4mm}
+.person .role{margin-top:1.5mm;font-size:10.5pt;color:var(--accent)}
+.person p{margin-top:2.5mm;font-size:10.5pt}
+
+/* closing */
+.big-cta{font-size:34pt;font-weight:800;letter-spacing:-1.4px}
+.contact{margin-top:8mm;font-family:var(--mono);font-size:12pt;color:var(--muted);line-height:1.9}
+
+/* glow accent */
+.glow{position:absolute;width:180mm;height:180mm;border-radius:50%;pointer-events:none;
+      background:radial-gradient(circle,rgba(76,130,247,.16),rgba(76,130,247,0) 62%);
+      right:-60mm;top:-70mm}
+
+/* ================= PRINT =================
+   A deck is presented on a screen, so the dark background is kept.
+   Turn Background graphics ON for export. */
+@media print{
+  @page{size:297mm 167mm;margin:0}
+  body{background:#08090b;padding:0;display:block;gap:0}
+  .hint{display:none}
+  .slide{width:297mm;height:167mm;border:0;border-radius:0;break-after:page;page-break-after:always}
+  .slide:last-of-type{break-after:auto;page-break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}

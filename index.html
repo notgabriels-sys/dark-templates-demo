@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Templates — live demos</title>
+<meta name="description" content="Live demos of dark, print-ready HTML template packs: business documents, slide decks, and app screens.">
+<meta property="og:title" content="Dark Templates — live demos">
+<meta property="og:description" content="Business documents, slide decks and app screens. Plain HTML, dark on screen, no dependencies.">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#08090b;--card:#101216;--hair:#252b34;--ink:#F2F4F6;--mute:#98a0ab;--faint:#6a7280;
+--accent:#4C82F7;--teal:#2DD4B2;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;
+     padding:72px 24px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{margin-top:16px;font-size:44px;font-weight:800;letter-spacing:-1.6px;line-height:1.05}
+.sub{margin-top:16px;color:var(--mute);font-size:17px;max-width:64ch}
+h2{margin-top:56px;font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);font-weight:800}
+.pack{margin-top:18px;padding:26px;background:var(--card);border:1px solid var(--hair);border-radius:12px}
+.pack h3{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.pack .d{margin-top:8px;color:var(--mute);font-size:15px;max-width:66ch}
+.links{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+a.btn{display:inline-block;padding:9px 16px;border:1px solid var(--hair);border-radius:8px;
+      text-decoration:none;color:var(--ink);font-size:14.5px;transition:border-color .15s,transform .15s}
+a.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+a.btn.buy{border-color:var(--teal);color:var(--teal)}
+.meta{margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+.note{margin-top:44px;padding:16px 18px;border:1px solid var(--hair);border-left:3px solid var(--accent);
+      border-radius:8px;color:var(--mute);font-size:14.5px}
+.note b{color:var(--ink)}
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+footer a{color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kick">Live demos</div>
+  <h1>Dark templates that print clean.</h1>
+  <p class="sub">Plain HTML and CSS. No framework, no build step, no subscription. Dark on screen —
+  and each pack does the right thing when you export: documents go clean black-on-white, decks keep
+  their background. Everything below is the real thing running in your browser.</p>
+
+  <h2>Business documents</h2>
+  <div class="pack">
+    <h3>Dark Invoice &amp; Business Documents</h3>
+    <p class="d">Nine documents: invoice, quote, receipt, credit note, delivery note, purchase order,
+    timesheet, statement of account, and an EU reverse-charge invoice. VAT lines, IBAN fields,
+    ageing buckets. Eight of the nine print to a single A4 page.</p>
+    <div class="links">
+      <a class="btn" href="invoices/01-invoice.html">Invoice</a>
+      <a class="btn" href="invoices/09-invoice-reverse-charge.html">EU reverse charge</a>
+      <a class="btn buy" href="https://notgabriel.gumroad.com/l/wuhehk">Get the pack</a>
+    </div>
+    <div class="meta">2 of 9 documents shown · try Cmd/Ctrl+P with background graphics OFF</div>
+  </div>
+
+  <h2>Presentations</h2>
+  <div class="pack">
+    <h3>Dark Slide Templates</h3>
+    <p class="d">Three decks, 28 slides: investor pitch, client proposal, quarterly business review.
+    Exports at exactly 297 × 167 mm — a true 16:9 frame with no letterboxing. Charts and timelines
+    are hand-written CSS, no JavaScript anywhere.</p>
+    <div class="links">
+      <a class="btn" href="slides/01-pitch-deck.html">Investor pitch deck</a>
+      <a class="btn buy" href="https://notgabriel.gumroad.com/l/wuhehk">Get the pack</a>
+    </div>
+    <div class="meta">1 of 3 decks shown · export with background graphics ON</div>
+  </div>
+
+  <h2>Product UI</h2>
+  <div class="pack">
+    <h3>Dark App Screens</h3>
+    <p class="d">Six application screens — sign in, dashboard, data table, settings, inbox, 404 —
+    plus 50 dark themes on a nine-variable contract, so any theme drops into any screen.
+    The dashboard chart is hand-written SVG, not a charting library.</p>
+    <div class="links">
+      <a class="btn" href="screens/dashboard.html">Dashboard</a>
+      <a class="btn" href="screens/signin.html">Sign in</a>
+      <a class="btn buy" href="https://notgabriel.gumroad.com/l/wuhehk">Get the pack</a>
+    </div>
+    <div class="meta">2 of 6 screens shown</div>
+  </div>
+
+  <h2>Also live</h2>
+  <div class="pack">
+    <h3>Dark HTML Templates</h3>
+    <p class="d">The marketing side: landing, docs, pricing, changelog, waitlist, résumé and more,
+    with 50 themes. Separate demo site.</p>
+    <div class="links">
+      <a class="btn" href="https://notgabriels-sys.github.io/dark-html-templates-demo/">Open that demo</a>
+      <a class="btn" href="https://notgabriels-sys.github.io/claude-code-50-dark-themes/">50 free terminal themes</a>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>These are previews, not the packs.</b> A subset of each pack is published here so you can
+    judge the real output before buying. The full packs include every document, deck and screen,
+    plus finished sample PDFs.
+  </div>
+
+  <footer>
+    Built by <a href="https://github.com/notgabriels-sys">notgabriels-sys</a> ·
+    <a href="https://notgabriel.gumroad.com/">all products</a> ·
+    The free 50-theme pack for Claude Code is
+    <a href="https://github.com/notgabriels-sys/claude-code-50-dark-themes">open source on GitHub</a>.
+  </footer>
+</div>
+</body>
+</html>

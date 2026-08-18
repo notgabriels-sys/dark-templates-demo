@@ -1,0 +1,151 @@
+/* Dark Invoice & Business Document Templates — shared stylesheet
+   Dark on screen. Clean black-on-white the moment you print or save to PDF.
+   Print: Cmd/Ctrl+P → Destination "Save as PDF" → Margins: Default → Background graphics OFF.
+   Every rule, bar and box below prints as a BORDER, not a background fill,
+   so the documents stay legible with background graphics switched off. */
+
+:root{
+  --bg:#0b0c0e; --page:#141619; --hair:#262b33; --hair-soft:#1d222a;
+  --ink:#ECEEF0; --muted:#9aa0ab; --faint:#6b7280;
+  --accent:#4C82F7; --good:#3FB984; --warn:#E0A33E;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--font);color:var(--ink);
+     display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 16px;
+     -webkit-font-smoothing:antialiased}
+
+.page{width:210mm;min-height:297mm;background:var(--page);color:var(--ink);
+      padding:18mm 16mm;border:1px solid var(--hair);border-radius:4px;
+      display:flex;flex-direction:column}
+
+.hint{color:#6b7280;font-family:var(--mono);font-size:12px;letter-spacing:1.5px;
+      text-transform:uppercase;text-align:center;max-width:210mm}
+
+/* ---- masthead ---- */
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16mm}
+.brand{font-size:15pt;font-weight:800;letter-spacing:-.3px}
+.brand .mark{display:inline-block;width:9pt;height:9pt;border:2.5pt solid var(--accent);
+              border-radius:2pt;margin-right:6pt;vertical-align:baseline}
+.from{margin-top:7pt;font-size:9pt;line-height:1.55;color:var(--muted)}
+.doctype{text-align:right;white-space:nowrap}
+.doctype h1{font-size:24pt;font-weight:800;letter-spacing:-.8px;line-height:1}
+.doctype .no{margin-top:5pt;font-family:var(--mono);font-size:10pt;color:var(--accent);font-weight:600}
+
+/* ---- meta strip ---- */
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8mm;
+      margin-top:11mm;padding:6mm 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta .k{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);font-weight:700}
+.meta .v{margin-top:3pt;font-size:10pt;font-weight:600}
+.meta .v.mono{font-family:var(--mono);font-size:9.5pt}
+
+/* ---- parties ---- */
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:12mm;margin-top:9mm}
+.party .k{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);font-weight:700}
+.party .name{margin-top:4pt;font-size:11pt;font-weight:700}
+.party .addr{margin-top:3pt;font-size:9.5pt;line-height:1.55;color:var(--muted)}
+
+/* ---- line items ---- */
+table{width:100%;border-collapse:collapse;margin-top:9mm}
+thead th{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);
+         font-weight:700;text-align:left;padding:0 0 5pt;border-bottom:1px solid var(--hair)}
+th.num,td.num{text-align:right;white-space:nowrap}
+tbody td{padding:7pt 0;font-size:10pt;border-bottom:1px solid var(--hair-soft);vertical-align:top}
+tbody td.desc{color:var(--ink);padding-right:8mm}
+tbody td.desc small{display:block;margin-top:2.5pt;font-size:8.5pt;color:var(--faint);line-height:1.45}
+tbody td.num{font-family:var(--mono);font-size:9.5pt;color:var(--muted)}
+tbody td.num.total{color:var(--ink);font-weight:600}
+
+/* ---- totals ---- */
+.sum{margin-top:7mm;margin-left:auto;width:78mm}
+.sum .row{display:flex;justify-content:space-between;gap:10mm;padding:4.5pt 0;font-size:10pt}
+.sum .row span:first-child{color:var(--muted)}
+.sum .row span:last-child{font-family:var(--mono);font-size:9.5pt}
+.sum .row.rule{border-top:1px solid var(--hair);margin-top:3pt;padding-top:7pt}
+.sum .row.grand{border-top:2pt solid var(--accent);margin-top:4pt;padding-top:8pt;
+                font-size:13pt;font-weight:800}
+.sum .row.grand span:last-child{font-family:var(--font);font-size:14pt}
+
+/* ---- notes / payment ---- */
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:12mm;margin-top:11mm}
+.block .k{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);
+          font-weight:700;padding-bottom:4pt;border-bottom:1px solid var(--hair)}
+.block p{margin-top:5pt;font-size:9pt;line-height:1.6;color:var(--muted)}
+.block .kv{margin-top:5pt;font-size:9pt;line-height:1.7;color:var(--muted)}
+.block .kv b{color:var(--ink);font-weight:600;font-family:var(--mono);font-size:8.5pt}
+
+.pill{display:inline-block;font-size:8pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+      padding:2.5pt 8pt;border-radius:999px;border:1.5pt solid var(--accent);color:var(--accent)}
+.pill.paid{border-color:var(--good);color:var(--good)}
+.pill.due{border-color:var(--warn);color:var(--warn)}
+
+.foot{margin-top:auto;padding-top:9mm;border-top:1px solid var(--hair);
+      font-size:8.5pt;line-height:1.6;color:var(--faint);text-align:center}
+
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:16mm;margin-top:14mm}
+.sig .line{border-top:1px solid var(--hair);padding-top:4pt;font-size:8.5pt;color:var(--faint)}
+
+/* ================= PRINT ================= */
+@media print{
+  @page{size:A4;margin:14mm}
+  body{background:#fff;padding:0;display:block;gap:0}
+  .hint{display:none}
+  .page{width:auto;min-height:0;background:#fff;border:0;border-radius:0;padding:0;color:#111;display:block}
+  h1,.brand,.party .name,strong{color:#000}
+  .doctype .no{color:#111}
+  .brand .mark{border-color:#111}
+  p,.addr,.from,.sum .row span:first-child,.block p,.block .kv{color:#333}
+  .meta .k,.party .k,.block .k,thead th,.foot,tbody td.desc small,.sig .line{color:#555}
+  .meta,.parties,thead th,.block .k,.sum .row.rule,.foot,.sig .line{border-color:#ccc}
+  tbody td{border-bottom-color:#ddd;color:#111}
+  tbody td.num{color:#333}
+  tbody td.num.total{color:#000}
+  /* Borders, never background fills — survives "Background graphics: off". */
+  .sum .row.grand{border-top:2pt solid #111}
+  .pill{border-color:#111;color:#111;background:transparent}
+  a{color:#111;text-decoration:none}
+  tr,.block,.sum{break-inside:avoid}
+  thead{display:table-header-group}
+
+  /* Compaction: keep a normal document on ONE A4 page.
+     Screen spacing stays generous; print tightens the vertical rhythm. */
+  .meta{margin-top:7mm;padding:4mm 0;gap:6mm}
+  .parties{margin-top:6mm;gap:10mm}
+  table{margin-top:6mm}
+  tbody td{padding:5pt 0}
+  .sum{margin-top:5mm}
+  .sum .row{padding:3.5pt 0}
+  .sum .row.grand{padding-top:6pt}
+  .blocks{margin-top:7mm;gap:10mm}
+  .sig{margin-top:9mm}
+  .foot{padding-top:6mm;margin-top:7mm}
+  .top{gap:12mm}
+
+  /* Row-heavy documents (timesheet, statement) opt into `class="page dense"`.
+     Slightly smaller type so a full month still lands on one page. */
+  .page.dense tbody td{font-size:9pt;padding:4pt 0}
+  .page.dense tbody td.desc small{font-size:8pt;margin-top:2pt}
+  .page.dense tbody td.num{font-size:8.5pt}
+  .page.dense .sum .row{padding:3pt 0;font-size:9.5pt}
+  .page.dense .blocks{margin-top:5mm}
+  .page.dense .block p,.page.dense .block .kv{font-size:8.5pt;line-height:1.5}
+  .page.dense .sig{margin-top:6mm}
+  .page.dense .foot{padding-top:5mm;margin-top:5mm}
+  .page.dense .meta{margin-top:6mm;padding:3.5mm 0}
+  .page.dense .parties{margin-top:5mm}
+  .page.dense table{margin-top:5mm}
+
+  /* Extra-dense: for the longest sample documents. */
+  .page.dense .top{gap:10mm}
+  .page.dense .doctype h1{font-size:21pt}
+  .page.dense .from,.page.dense .party .addr{font-size:8.5pt;line-height:1.45}
+  .page.dense .party .name{font-size:10pt}
+  .page.dense tbody td{padding:3.2pt 0}
+  .page.dense tbody td.desc small{line-height:1.35}
+  .page.dense .sum{margin-top:4mm}
+  .page.dense .sum .row{padding:2.6pt 0}
+  .page.dense .sum .row.grand{font-size:12pt;padding-top:5pt}
+  .page.dense .blocks{margin-top:4.5mm}
+  .page.dense .sig{margin-top:5mm}
+}

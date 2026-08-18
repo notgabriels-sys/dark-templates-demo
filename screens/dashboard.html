@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Your App</title>
+<meta name="description" content="Analytics dashboard screen.">
+<!-- EDIT: nav items, stat values, chart data (the SVG polyline points), activity rows. -->
+<style>
+  :root{
+    --bg:#0a0b0d; --surface:#131519; --hair:#22252b;
+    --ink:#ECEEF0; --mute:#8b9099; --faint:#5f646c;
+    --accent:#3FC8B0; --accent-2:#8BE3D4; --accent-dim:#1d4d47;
+    --up:#33D17A; --down:#E5484D;
+    --sans:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;line-height:1.55;display:flex;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+
+  aside{width:224px;flex:none;border-right:1px solid var(--hair);padding:18px 14px;
+    display:flex;flex-direction:column;gap:22px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;padding:0 8px}
+  .brand i{width:11px;height:11px;border-radius:3px;background:var(--accent);display:block}
+  nav{display:grid;gap:2px}
+  nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;
+    color:var(--mute);font-size:14px;font-weight:500}
+  nav a:hover{background:var(--surface);color:var(--ink)}
+  nav a.on{background:var(--accent-dim);color:var(--accent-2);font-weight:650}
+  nav a .d{width:6px;height:6px;border-radius:2px;background:currentColor;opacity:.65}
+  .side-foot{margin-top:auto;padding:10px;border-top:1px solid var(--hair);
+    display:flex;align-items:center;gap:9px;font-size:13px}
+  .av{width:26px;height:26px;border-radius:50%;background:var(--accent-dim);
+    color:var(--accent-2);display:grid;place-items:center;font-size:11px;font-weight:700}
+
+  main{flex:1;min-width:0;padding:22px clamp(18px,3vw,32px) 48px}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  h1{font-size:23px;font-weight:800;letter-spacing:-.02em}
+  .range{display:inline-flex;gap:3px;background:var(--surface);border:1px solid var(--hair);
+    border-radius:9px;padding:3px}
+  .range button{font:inherit;font-size:12.5px;font-weight:600;color:var(--mute);background:none;
+    border:0;padding:6px 12px;border-radius:6px;cursor:pointer}
+  .range button[aria-pressed=true]{background:var(--accent);color:#0a0b0d}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:13px;margin-top:22px}
+  .stat{background:var(--surface);border:1px solid var(--hair);border-radius:13px;padding:16px}
+  .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .stat .v{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-top:7px}
+  .delta{font-size:12.5px;font-weight:650;margin-top:5px}
+  .delta.up{color:var(--up)} .delta.down{color:var(--down)}
+
+  .panels{display:grid;grid-template-columns:1.7fr 1fr;gap:13px;margin-top:13px}
+  .panel{background:var(--surface);border:1px solid var(--hair);border-radius:13px;padding:16px}
+  .panel h2{font-size:14.5px;font-weight:700}
+  .panel .cap{color:var(--faint);font-size:12.5px;margin-top:2px}
+  svg{width:100%;height:170px;margin-top:12px;overflow:visible}
+
+  .bars{display:grid;gap:11px;margin-top:16px}
+  .bar-row{display:grid;grid-template-columns:70px 1fr 44px;align-items:center;gap:10px;font-size:13px}
+  .bar-row .t{color:var(--mute)}
+  .track{display:block;height:7px;border-radius:4px;background:#1b1e24;overflow:hidden}
+  .fill{display:block;height:100%;border-radius:4px;background:var(--accent)}
+  .bar-row .n{text-align:right;font-family:var(--mono);font-size:12px;color:var(--mute)}
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px}
+  th{text-align:left;padding:9px 6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--hair)}
+  td{padding:11px 6px;border-bottom:1px solid var(--hair);color:var(--mute)}
+  td strong{color:var(--ink);font-weight:600}
+  .pill{display:inline-block;font-size:11px;font-family:var(--mono);padding:2px 7px;border-radius:5px}
+  .ok{background:rgba(51,209,122,.14);color:var(--up)}
+  .warn{background:rgba(227,179,65,.14);color:#E3B341}
+
+  @media(max-width:900px){.panels{grid-template-columns:1fr}}
+  @media(max-width:760px){aside{display:none}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="brand"><i></i>Meridian</div>
+  <nav>
+    <a class="on" href="#"><span class="d"></span>Overview</a>
+    <a href="#"><span class="d"></span>Analytics</a>
+    <a href="#"><span class="d"></span>Customers</a>
+    <a href="#"><span class="d"></span>Invoices</a>
+    <a href="#"><span class="d"></span>Settings</a>
+  </nav>
+  <div class="side-foot"><span class="av">YN</span>Your Name</div>
+</aside>
+
+<main>
+  <div class="top">
+    <div><h1>Overview</h1><p style="color:var(--mute);font-size:13.5px">Last 30 days vs previous period</p></div>
+    <div class="range" role="group" aria-label="Date range">
+      <button aria-pressed="false">7d</button>
+      <button aria-pressed="true">30d</button>
+      <button aria-pressed="false">12m</button>
+    </div>
+  </div>
+
+  <!-- EDIT: the four headline stats -->
+  <section class="stats">
+    <div class="stat"><div class="k">Revenue</div><div class="v">$48,290</div><div class="delta up">↑ 12.4%</div></div>
+    <div class="stat"><div class="k">Active users</div><div class="v">3,914</div><div class="delta up">↑ 8.1%</div></div>
+    <div class="stat"><div class="k">Churn</div><div class="v">1.8%</div><div class="delta down">↓ 0.3%</div></div>
+    <div class="stat"><div class="k">Avg. session</div><div class="v">6m 12s</div><div class="delta up">↑ 41s</div></div>
+  </section>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>Revenue</h2><p class="cap">Daily, last 30 days</p>
+      <!-- EDIT: change the points to plot your own series (viewBox is 0 0 600 170) -->
+      <svg viewBox="0 0 600 170" preserveAspectRatio="none" role="img" aria-label="Revenue trend, rising">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--accent)" stop-opacity=".34"/>
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <g stroke="var(--hair)" stroke-width="1">
+          <line x1="0" y1="42" x2="600" y2="42"/><line x1="0" y1="85" x2="600" y2="85"/>
+          <line x1="0" y1="128" x2="600" y2="128"/>
+        </g>
+        <path d="M0,140 L50,132 L100,138 L150,118 L200,124 L250,98 L300,104 L350,80 L400,86 L450,58 L500,64 L550,38 L600,30 L600,170 L0,170 Z" fill="url(#g)"/>
+        <polyline points="0,140 50,132 100,138 150,118 200,124 250,98 300,104 350,80 400,86 450,58 500,64 550,38 600,30"
+          fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="panel">
+      <h2>Top sources</h2><p class="cap">By sessions</p>
+      <div class="bars">
+        <div class="bar-row"><span class="t">Direct</span><span class="track"><span class="fill" style="width:82%"></span></span><span class="n">1,842</span></div>
+        <div class="bar-row"><span class="t">Search</span><span class="track"><span class="fill" style="width:64%"></span></span><span class="n">1,436</span></div>
+        <div class="bar-row"><span class="t">Referral</span><span class="track"><span class="fill" style="width:41%"></span></span><span class="n">921</span></div>
+        <div class="bar-row"><span class="t">Social</span><span class="track"><span class="fill" style="width:23%"></span></span><span class="n">514</span></div>
+        <div class="bar-row"><span class="t">Email</span><span class="track"><span class="fill" style="width:14%"></span></span><span class="n">312</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:13px">
+    <h2>Recent activity</h2>
+    <table>
+      <thead><tr><th>Customer</th><th>Plan</th><th>Amount</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Kestrel Bank</strong></td><td>Team</td><td>$99.00</td><td><span class="pill ok">Paid</span></td></tr>
+        <tr><td><strong>Vantage Health</strong></td><td>Pro</td><td>$29.00</td><td><span class="pill ok">Paid</span></td></tr>
+        <tr><td><strong>Orbit Logistics</strong></td><td>Pro</td><td>$29.00</td><td><span class="pill warn">Pending</span></td></tr>
+        <tr><td><strong>Northwind</strong></td><td>Team</td><td>$99.00</td><td><span class="pill ok">Paid</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+</body>
+</html>
