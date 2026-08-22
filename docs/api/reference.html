@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API reference — Meridian Docs</title>
+<meta name="description" content="Docs / Reference / API">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/docs.js" defer></script>
+</head>
+<body data-base="../">
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="../index.html"><span class="mk"></span>Meridian</a>
+    <span class="ver">v2.4.0</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="../guide/quickstart.html">Guides</a>
+
+      <a href="../api/reference.html">API</a>
+
+      <a href="../changelog.html">Changelog</a>
+
+    </nav>
+    <div class="search">
+      <span class="mag">⌕</span>
+      <input id="q" type="search" placeholder="Search  /" autocomplete="off" aria-label="Search docs">
+      <div id="results" class="results" role="listbox"></div>
+    </div>
+    <button id="theme-btn" class="icon-btn" type="button" aria-label="Toggle theme">☀</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <h4>Getting started</h4>
+    <a href="../index.html">Introduction</a>
+
+    <span class="side-locked">Installation<em>pack</em></span>
+    <a href="../guide/quickstart.html">Quickstart</a>
+
+    <h4>Guides</h4>
+    <span class="side-locked">Configuration<em>pack</em></span>
+    <span class="side-locked">Deployment<em>pack</em></span>
+    <h4>Reference</h4>
+    <a href="../api/reference.html" aria-current="page">API reference</a>
+
+    <span class="side-locked">Error codes<em>pack</em></span>
+    <a href="../changelog.html">Changelog</a>
+
+  </aside>
+
+  <main>
+    <div class="crumbs">Docs / Reference / API</div>
+    <h1>API reference</h1>
+    <p class="lede">Base URL <code>https://api.meridian.example/v1</code>. All requests need
+    <code>Authorization: Bearer &lt;key&gt;</code>. All responses are JSON.</p>
+
+    <h2>Forecasts</h2>
+    <p><span class="pill get">GET</span> <code>/forecasts</code></p>
+    <table>
+      <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>sku</td><td>string</td><td>yes</td><td>Your SKU identifier</td></tr>
+        <tr><td>location</td><td>string</td><td>yes</td><td>Warehouse or store code</td></tr>
+        <tr><td>horizon</td><td>int</td><td>no</td><td>Days ahead, 1–90. Defaults to the configured value.</td></tr>
+        <tr><td>include_drivers</td><td>bool</td><td>no</td><td>Return the factors behind the number</td></tr>
+      </tbody>
+    </table>
+
+    <p><span class="pill post">POST</span> <code>/forecasts/batch</code></p>
+    <pre><code>curl https://api.meridian.example/v1/forecasts/batch \
+  -H "Authorization: Bearer $MERIDIAN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"sku":"SKU-10492","location":"WH-BERLIN"}],"horizon":28}'</code></pre>
+    <p>Batch accepts up to 1,000 items per request and is rate limited separately from single lookups.</p>
+
+    <h2>Proposals</h2>
+    <p><span class="pill get">GET</span> <code>/proposals</code> ·
+       <span class="pill post">POST</span> <code>/proposals/:id/approve</code> ·
+       <span class="pill del">DELETE</span> <code>/proposals/:id</code></p>
+    <pre><code>{
+  "id": "prop_4471",
+  "sku": "SKU-10492",
+  "location": "WH-BERLIN",
+  "quantity": 640,
+  "rationale": "P50 demand 640 over 28d, on-hand 120, lead time 21d",
+  "status": "pending",
+  "expires_at": "2026-09-01T00:00:00Z"
+}</code></pre>
+
+    <h2>Rate limits</h2>
+    <table>
+      <thead><tr><th>Endpoint</th><th>Limit</th><th>Window</th></tr></thead>
+      <tbody>
+        <tr><td>/forecasts</td><td>600</td><td>per minute</td></tr>
+        <tr><td>/forecasts/batch</td><td>20</td><td>per minute</td></tr>
+        <tr><td>/proposals</td><td>120</td><td>per minute</td></tr>
+      </tbody>
+    </table>
+    <p>Every response carries <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>.
+    A <code>429</code> includes <code>Retry-After</code> in seconds — honour it rather than backing off blindly.</p>
+  </main>
+
+  <aside class="toc" id="toc"></aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Changelog — Meridian Docs</title>
+<meta name="description" content="Docs / Reference / Changelog">
+<link rel="stylesheet" href="assets/docs.css">
+<script src="assets/docs.js" defer></script>
+</head>
+<body data-base="">
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="index.html"><span class="mk"></span>Meridian</a>
+    <span class="ver">v2.4.0</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="guide/quickstart.html">Guides</a>
+
+      <a href="api/reference.html">API</a>
+
+      <a href="changelog.html">Changelog</a>
+
+    </nav>
+    <div class="search">
+      <span class="mag">⌕</span>
+      <input id="q" type="search" placeholder="Search  /" autocomplete="off" aria-label="Search docs">
+      <div id="results" class="results" role="listbox"></div>
+    </div>
+    <button id="theme-btn" class="icon-btn" type="button" aria-label="Toggle theme">☀</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <h4>Getting started</h4>
+    <a href="index.html">Introduction</a>
+
+    <span class="side-locked">Installation<em>pack</em></span>
+    <a href="guide/quickstart.html">Quickstart</a>
+
+    <h4>Guides</h4>
+    <span class="side-locked">Configuration<em>pack</em></span>
+    <span class="side-locked">Deployment<em>pack</em></span>
+    <h4>Reference</h4>
+    <a href="api/reference.html">API reference</a>
+
+    <span class="side-locked">Error codes<em>pack</em></span>
+    <a href="changelog.html" aria-current="page">Changelog</a>
+
+  </aside>
+
+  <main>
+    <div class="crumbs">Docs / Reference / Changelog</div>
+    <h1>Changelog</h1>
+    <p class="lede">Meridian follows semantic versioning. Breaking changes only ever land in a
+    major release, and always with a migration note.</p>
+
+    <h2>2.4.0 — 12 August 2026</h2>
+    <ul>
+      <li><strong>Added</strong> multi-warehouse transfer proposals, not just reorders.</li>
+      <li><strong>Added</strong> <code>include_drivers</code> on <code>GET /forecasts</code>.</li>
+      <li><strong>Changed</strong> batch limit raised from 500 to 1,000 items.</li>
+      <li><strong>Fixed</strong> promotions spanning a month boundary were counted twice.</li>
+    </ul>
+
+    <h2>2.3.2 — 28 July 2026</h2>
+    <ul>
+      <li><strong>Fixed</strong> <code>connector_schema_drift</code> fired on optional fields.</li>
+      <li><strong>Fixed</strong> CLI hung when the terminal was resized mid-sync.</li>
+    </ul>
+
+    <h2>2.3.0 — 9 July 2026</h2>
+    <ul>
+      <li><strong>Added</strong> learned supplier lead times, replacing the static field.</li>
+      <li><strong>Deprecated</strong> <code>GET /forecast</code> (singular). Use
+        <code>/forecasts</code>. Removal in 3.0.</li>
+    </ul>
+
+    <div class="note warn">
+      <div class="k">Coming in 3.0</div>
+      <p>The singular <code>/forecast</code> endpoint and the <code>confidence: "unknown"</code>
+      value are both removed. Migration guide ships one full release ahead.</p>
+    </div>
+  </main>
+
+  <aside class="toc" id="toc"></aside>
+</div>
+</body>
+</html>

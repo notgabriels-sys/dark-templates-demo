@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quickstart — Meridian Docs</title>
+<meta name="description" content="Docs / Getting started / Quickstart">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/docs.js" defer></script>
+</head>
+<body data-base="../">
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="../index.html"><span class="mk"></span>Meridian</a>
+    <span class="ver">v2.4.0</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="../guide/quickstart.html">Guides</a>
+
+      <a href="../api/reference.html">API</a>
+
+      <a href="../changelog.html">Changelog</a>
+
+    </nav>
+    <div class="search">
+      <span class="mag">⌕</span>
+      <input id="q" type="search" placeholder="Search  /" autocomplete="off" aria-label="Search docs">
+      <div id="results" class="results" role="listbox"></div>
+    </div>
+    <button id="theme-btn" class="icon-btn" type="button" aria-label="Toggle theme">☀</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <h4>Getting started</h4>
+    <a href="../index.html">Introduction</a>
+
+    <span class="side-locked">Installation<em>pack</em></span>
+    <a href="../guide/quickstart.html" aria-current="page">Quickstart</a>
+
+    <h4>Guides</h4>
+    <span class="side-locked">Configuration<em>pack</em></span>
+    <span class="side-locked">Deployment<em>pack</em></span>
+    <h4>Reference</h4>
+    <a href="../api/reference.html">API reference</a>
+
+    <span class="side-locked">Error codes<em>pack</em></span>
+    <a href="../changelog.html">Changelog</a>
+
+  </aside>
+
+  <main>
+    <div class="crumbs">Docs / Getting started / Quickstart</div>
+    <h1>Quickstart</h1>
+    <p class="lede">Connect a source, run a sync, and pull your first forecast — end to end.</p>
+
+    <h2>1. Connect a source</h2>
+    <pre><code>meridian connect erp \
+  --type netsuite \
+  --account 1234567 \
+  --role 3</code></pre>
+    <p>The CLI opens a browser window for consent. Meridian requests read scopes only.</p>
+
+    <h2>2. Run the first sync</h2>
+    <pre><code>meridian sync --full</code></pre>
+    <p>A first full sync of roughly 50,000 SKUs takes eight to twelve minutes. Later syncs are
+    incremental and usually finish inside a minute.</p>
+
+    <h2>3. Fetch a forecast</h2>
+    <pre><code>curl https://api.meridian.example/v1/forecasts \
+  -H "Authorization: Bearer $MERIDIAN_API_KEY" \
+  -d sku=SKU-10492 \
+  -d location=WH-BERLIN \
+  -d horizon=28</code></pre>
+
+    <pre><code>{
+  "sku": "SKU-10492",
+  "location": "WH-BERLIN",
+  "horizon_days": 28,
+  "forecast": { "p10": 412, "p50": 640, "p90": 968 },
+  "confidence": "medium",
+  "drivers": ["seasonality", "promotion_2026_08"]
+}</code></pre>
+
+    <div class="note">
+      <div class="k">Reading the range</div>
+      <p>P50 is the median, not the average. P10 and P90 bound the middle 80% of outcomes —
+      order to P90 only when a stockout costs more than the carrying cost.</p>
+    </div>
+
+    <h2>4. Review order proposals</h2>
+    <pre><code>meridian proposals list --location WH-BERLIN --status pending</code></pre>
+    <p>Proposals never execute on their own. A buyer approves each one in the dashboard, or
+    through <code>POST /v1/proposals/:id/approve</code>.</p>
+  </main>
+
+  <aside class="toc" id="toc"></aside>
+</div>
+</body>
+</html>

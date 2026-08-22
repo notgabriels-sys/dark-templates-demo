@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Introduction — Meridian Docs</title>
+<meta name="description" content="Docs / Introduction">
+<link rel="stylesheet" href="assets/docs.css">
+<script src="assets/docs.js" defer></script>
+</head>
+<body data-base="">
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="index.html"><span class="mk"></span>Meridian</a>
+    <span class="ver">v2.4.0</span>
+    <div class="spacer"></div>
+    <nav>
+      <a href="guide/quickstart.html">Guides</a>
+
+      <a href="api/reference.html">API</a>
+
+      <a href="changelog.html">Changelog</a>
+
+    </nav>
+    <div class="search">
+      <span class="mag">⌕</span>
+      <input id="q" type="search" placeholder="Search  /" autocomplete="off" aria-label="Search docs">
+      <div id="results" class="results" role="listbox"></div>
+    </div>
+    <button id="theme-btn" class="icon-btn" type="button" aria-label="Toggle theme">☀</button>
+  </div>
+</header>
+
+<div class="shell">
+  <aside class="side">
+    <h4>Getting started</h4>
+    <a href="index.html" aria-current="page">Introduction</a>
+
+    <span class="side-locked">Installation<em>pack</em></span>
+    <a href="guide/quickstart.html">Quickstart</a>
+
+    <h4>Guides</h4>
+    <span class="side-locked">Configuration<em>pack</em></span>
+    <span class="side-locked">Deployment<em>pack</em></span>
+    <h4>Reference</h4>
+    <a href="api/reference.html">API reference</a>
+
+    <span class="side-locked">Error codes<em>pack</em></span>
+    <a href="changelog.html">Changelog</a>
+
+  </aside>
+
+  <main>
+    <div class="crumbs">Docs / Introduction</div>
+    <h1>Meridian</h1>
+    <p class="lede">Meridian turns warehouse data into forecasts your buyers can act on — with the
+    uncertainty attached, not hidden behind a single number.</p>
+
+    <h2>What it does</h2>
+    <p>Point Meridian at your ERP and point-of-sale systems. It reads them on a schedule, builds a
+    demand forecast per SKU per location, and gives every forecast a range rather than a single
+    guess. Buyers see how wrong the number might be before they commit cash to stock.</p>
+    <ul>
+      <li><strong>Read-only by default.</strong> Meridian never writes to your systems of record.</li>
+      <li><strong>Ranges, not point estimates.</strong> Every forecast carries P10, P50 and P90.</li>
+      <li><strong>Proposals, not automation.</strong> Draft purchase orders wait for a human.</li>
+    </ul>
+
+    <h2>Who it is for</h2>
+    <p>Mid-market retailers and distributors — roughly 20 to 500 locations — who have outgrown
+    spreadsheets but do not want an eighteen-month ERP replacement.</p>
+
+    <div class="note">
+      <div class="k">Before you start</div>
+      <p>You will need read credentials for at least one source system and an API key.
+      The <a href="../index.html">full pack</a> covers both.</p>
+    </div>
+
+    <h2>How the docs are organised</h2>
+    <table>
+      <thead><tr><th>Section</th><th>What is in it</th></tr></thead>
+      <tbody>
+        <tr><td>Getting started</td><td>Install, authenticate, and get a first forecast back</td></tr>
+        <tr><td>Guides</td><td>Configuration, connectors, deployment topologies</td></tr>
+        <tr><td>Reference</td><td>Every endpoint, every error code, and the changelog</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <aside class="toc" id="toc"></aside>
+</div>
+</body>
+</html>

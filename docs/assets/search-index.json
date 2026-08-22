@@ -1,0 +1,26 @@
+[
+ {
+  "url": "index.html",
+  "title": "Introduction",
+  "section": "Docs / Introduction",
+  "body": "Meridian Meridian turns warehouse data into forecasts your buyers can act on \u2014 with the uncertainty attached, not hidden behind a single number. What it does Point Meridian at your ERP and point-of-sale systems. It reads them on a schedule, builds a demand forecast per SKU per location, and gives every forecast a range rather than a single guess. Buyers see how wrong the number might be before they commit cash to stock. Read-only by default. Meridian never writes to your systems of record. Ranges, not point estimates. Every forecast carries P10, P50 and P90. Proposals, not automation. Draft purchase orders wait for a human. Who it is for Mid-market retailers and distributors \u2014 roughly 20 to 500 locations \u2014 who have outgrown spreadsheets but do not want an eighteen-month ERP replacement. Before you start You will need read credentials for at least one source system and an API key. The installation guide covers both. How the docs are organised Section What is in it Getting started Install, authenticate, and get a first forecast back Guides Configuration, connectors, deployment topologies Reference Every endpoint, every error code, and the changelog"
+ },
+ {
+  "url": "guide/quickstart.html",
+  "title": "Quickstart",
+  "section": "Docs / Getting started / Quickstart",
+  "body": "Quickstart Connect a source, run a sync, and pull your first forecast \u2014 end to end. 1. Connect a source meridian connect erp \\ --type netsuite \\ --account 1234567 \\ --role 3 The CLI opens a browser window for consent. Meridian requests read scopes only. 2. Run the first sync meridian sync --full A first full sync of roughly 50,000 SKUs takes eight to twelve minutes. Later syncs are incremental and usually finish inside a minute. 3. Fetch a forecast curl https://api.meridian.example/v1/forecasts \\ -H \"Authorization: Bearer $MERIDIAN_API_KEY\" \\ -d sku=SKU-10492 \\ -d location=WH-BERLIN \\ -d horizon=28 { \"sku\": \"SKU-10492\", \"location\": \"WH-BERLIN\", \"horizon_days\": 28, \"forecast\": { \"p10\": 412, \"p50\": 640, \"p90\": 968 }, \"confidence\": \"medium\", \"drivers\": [\"seasonality\", \"promotion_2026_08\"] } Reading the range P50 is the median, not the average. P10 and P90 bound the middle 80% of outcomes \u2014 order to P90 only when a stockout costs more than the carrying cost. 4. Review order proposals meridian proposals list --location WH-BERLIN --status pending Proposals never execute on their own. A buyer approves each one in the dashboard, or through POST /v1/proposals/:id/approve ."
+ },
+ {
+  "url": "api/reference.html",
+  "title": "API reference",
+  "section": "Docs / Reference / API",
+  "body": "API reference Base URL https://api.meridian.example/v1 . All requests need Authorization: Bearer <key> . All responses are JSON. Forecasts GET /forecasts Parameter Type Required Notes sku string yes Your SKU identifier location string yes Warehouse or store code horizon int no Days ahead, 1\u201390. Defaults to the configured value. include_drivers bool no Return the factors behind the number POST /forecasts/batch curl https://api.meridian.example/v1/forecasts/batch \\ -H \"Authorization: Bearer $MERIDIAN_API_KEY\" \\ -H \"Content-Type: application/json\" \\ -d '{\"items\":[{\"sku\":\"SKU-10492\",\"location\":\"WH-BERLIN\"}],\"horizon\":28}' Batch accepts up to 1,000 items per request and is rate limited separately from single lookups. Proposals GET /proposals \u00b7 POST /proposals/:id/approve \u00b7 DELETE /proposals/:id { \"id\": \"prop_4471\", \"sku\": \"SKU-10492\", \"location\": \"WH-BERLIN\", \"quantity\": 640, \"rationale\": \"P50 demand 640 over 28d, on-hand 120, lead time 21d\", \"status\": \"pending\", \"expires_at\": \"2026-09-01T00:00:00Z\" } Rate limits Endpoint Limit Window /forecasts 600 per minute /forecasts/batch 20 per minute /proposals 120 per minute Every response carries X-RateLimit-Remaining and X-RateLimit-Reset . A "
+ },
+ {
+  "url": "changelog.html",
+  "title": "Changelog",
+  "section": "Docs / Reference / Changelog",
+  "body": "Changelog Meridian follows semantic versioning. Breaking changes only ever land in a major release, and always with a migration note. 2.4.0 \u2014 12 August 2026 Added multi-warehouse transfer proposals, not just reorders. Added include_drivers on GET /forecasts . Changed batch limit raised from 500 to 1,000 items. Fixed promotions spanning a month boundary were counted twice. 2.3.2 \u2014 28 July 2026 Fixed connector_schema_drift fired on optional fields. Fixed CLI hung when the terminal was resized mid-sync. 2.3.0 \u2014 9 July 2026 Added learned supplier lead times, replacing the static field. Deprecated GET /forecast (singular). Use /forecasts . Removal in 3.0. Coming in 3.0 The singular /forecast endpoint and the confidence: \"unknown\" value are both removed. Migration guide ships one full release ahead."
+ }
+]
