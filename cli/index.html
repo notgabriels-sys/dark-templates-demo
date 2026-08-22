@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark CLI Toolkit — 50 palettes for starship, bat, delta, fzf, btop</title>
+<style>
+:root{--pg:#0b0c0e;--card:#131519;--hair:#242932;--ink:#ECEEF0;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--pg);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:56px 22px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:34px;font-weight:800;letter-spacing:-1.1px}
+.sub{margin-top:12px;color:var(--mute);font-size:16.5px;max-width:68ch}
+h2{margin-top:44px;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--acc);font-weight:800}
+.now{margin-top:14px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.now b{font-size:17px}.now code{font-family:var(--mono);font-size:12px;color:var(--mute)}
+
+.term{margin-top:14px;border:1px solid var(--hair);border-radius:12px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);background:var(--t-bg)}
+.tbar{height:32px;background:var(--t-surf);border-bottom:1px solid var(--t-line);
+  display:flex;align-items:center;gap:7px;padding:0 12px}
+.tbar i{width:10px;height:10px;border-radius:50%;background:var(--t-line);display:block}
+.tbar span{margin-left:8px;font-family:var(--mono);font-size:11px;color:var(--t-mute)}
+.body{padding:16px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.75;
+  color:var(--t-fg);white-space:pre;overflow-x:auto}
+.p-dir{color:var(--t-acc);font-weight:700}
+.p-git{color:var(--t-mag)}
+.p-st{color:var(--t-yel)}
+.p-ok{color:var(--t-acc);font-weight:700}
+.p-err{color:var(--t-red);font-weight:700}
+.c-dim{color:var(--t-dim)}
+.d-add{color:var(--t-grn)}
+.d-del{color:var(--t-red)}
+.d-hdr{color:var(--t-acc);font-weight:700}
+.d-hunk{color:var(--t-mute)}
+.f-ptr{color:var(--t-acc)}
+.f-hl{color:var(--t-mag)}
+.f-mark{color:var(--t-grn)}
+.l-dir{color:var(--t-acc);font-weight:700}
+.l-exe{color:var(--t-grn)}
+.l-link{color:var(--t-cya)}
+.l-arch{color:var(--t-mag)}
+.l-img{color:var(--t-cya)}
+.s-str{color:var(--t-grn)}
+.s-kw{color:var(--t-mag)}
+.s-fn{color:var(--t-blu)}
+.s-num{color:var(--t-yel)}
+.s-cls{color:var(--t-cya)}
+
+.sws{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
+.sw{border:1px solid var(--hair);border-radius:9px;padding:11px;cursor:pointer;text-align:left;
+  background:var(--b);transition:transform .12s,border-color .12s}
+.sw:hover{transform:translateY(-2px);border-color:var(--acc)}
+.sw.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.sw .chips{display:flex;gap:4px}.sw .chips i{width:14px;height:14px;border-radius:4px;display:block}
+.sw .nm{margin-top:9px;font-size:13px;font-weight:650;color:var(--i)}
+.tools{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.tool{border:1px solid var(--hair);border-radius:10px;padding:15px;background:var(--card)}
+.tool b{font-size:14.5px}
+.tool p{margin-top:5px;font-size:13px;color:var(--mute)}
+code.i{font-family:var(--mono);font-size:12.5px;background:#171a20;border:1px solid var(--hair);
+  border-radius:5px;padding:1px 6px;color:var(--ink)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Dark CLI Toolkit</h1>
+  <p class="sub">Fifty palettes applied to the tools <em>inside</em> the terminal — starship, bat,
+  delta, fzf, btop and your directory colours. Click a swatch: the terminal below is drawn with
+  that palette's real values, the same ones the config files contain.</p>
+
+  <div class="now"><b id="tname">—</b><code id="tslug">./install.sh …</code></div>
+
+  <div class="term" id="term">
+    <div class="tbar"><i></i><i></i><i></i><span id="tbar-t">zsh — dark-cli-toolkit</span></div>
+    <div class="body"><span class="p-dir">~/proj/forecast</span> <span class="p-git"> main</span><span class="p-st"> [!2 +1]</span>
+<span class="p-ok">❯</span> git diff --stat
+<span class="d-hdr">src/palette.py</span>
+<span class="d-hunk">@@ -14,7 +14,9 @@ def derive(theme, floor=4.5):</span>
+<span class="d-del">-    c = tint(name, theme.accent)</span>
+<span class="d-add">+    c = tint(name, theme.accent, cap=26)</span>
+<span class="d-add">+    while contrast(c, base) &lt; floor:</span>
+<span class="d-add">+        c = lift(c)</span>
+
+<span class="p-dir">~/proj/forecast</span> <span class="p-git"> main</span>
+<span class="p-ok">❯</span> bat src/palette.py
+<span class="c-dim">   1</span> <span class="c-dim"># derive the 16-colour palette</span>
+<span class="c-dim">   2</span> <span class="s-kw">from</span> dataclasses <span class="s-kw">import</span> <span class="s-cls">dataclass</span>
+<span class="c-dim">   3</span> <span class="s-kw">def</span> <span class="s-fn">derive</span>(theme, floor=<span class="s-num">4.5</span>) -&gt; <span class="s-cls">dict</span>:
+<span class="c-dim">   4</span>     <span class="s-str">"""Tint each slot, then lift until it passes."""</span>
+
+<span class="p-dir">~/proj/forecast</span>
+<span class="p-ok">❯</span> ls
+<span class="l-dir">src/</span>  <span class="l-dir">themes/</span>  <span class="l-exe">build.sh</span>  <span class="l-link">latest -&gt; v2.4.0</span>  <span class="l-arch">dist.zip</span>  <span class="l-img">cover.png</span>
+
+<span class="p-dir">~/proj/forecast</span>
+<span class="p-ok">❯</span> fzf
+<span class="f-ptr">❯</span> <span class="f-hl">pal</span>ette.py
+  <span class="f-mark">&gt;</span> themes/<span class="f-hl">pal</span>ettes.json
+    src/render.py
+<span class="c-dim">  3/128</span>
+<span class="p-err">❯</span> <span class="c-dim">(exit 1 — prompt turns red)</span></div>
+  </div>
+
+  <h2>All 50 palettes</h2>
+  <div class="sws" id="sws"></div>
+
+  <h2>What each palette themes</h2>
+  <div class="tools">
+    <div class="tool"><b>starship</b><p>Prompt: directory, git branch and status, language versions, command duration.</p></div>
+    <div class="tool"><b>bat</b><p>Pager syntax highlighting — 18 scopes, including diffs, headings and links.</p></div>
+    <div class="tool"><b>delta</b><p>Git diffs: added and removed blocks, line numbers, file and hunk headers.</p></div>
+    <div class="tool"><b>fzf</b><p>Fuzzy finder: prompt, pointer, marker, matched text, border.</p></div>
+    <div class="tool"><b>btop</b><p>System monitor: CPU, memory, network and temperature gradients.</p></div>
+    <div class="tool"><b>ls / eza</b><p>Directory colours in 24-bit, by file type and by extension.</p></div>
+  </div>
+
+  <h2>Installing</h2>
+  <p class="sub" style="margin-top:10px">One theme across every tool:
+  <code class="i">./install.sh deep-field</code> — or name just the tools you use:
+  <code class="i">./install.sh deep-field starship bat</code>. Existing configs are backed up.</p>
+
+  <footer>
+    Dark CLI Toolkit · 50 palettes × 6 tools = 300 config files.<br>
+    The terminal above is a rendering for colour comparison, not a live shell.
+  </footer>
+</div>
+<script>
+const T = [{"name":"Absinthe","slug":"absinthe","c":{"bg":"#1D1F19","surface":"#24261F","text":"#EBEDE8","muted":"#A9AF9D","accent":"#C0D648","accentBright":"#D7E58B","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Acid","slug":"acid","c":{"bg":"#191B13","surface":"#1F2117","text":"#EDEDE8","muted":"#ACAF9D","accent":"#C8E62E","accentBright":"#DBEF77","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Amber Room","slug":"amber-room","c":{"bg":"#201D18","surface":"#28241E","text":"#EDEBE8","muted":"#AFA79D","accent":"#E0A83C","accentBright":"#EBC782","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Anaglyph","slug":"anaglyph","c":{"bg":"#18181B","surface":"#1E1E21","text":"#E9E9EC","muted":"#A0A0AB","accent":"#FF5548","accentBright":"#FFA19A","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Blackout","slug":"blackout","c":{"bg":"#141415","surface":"#19191A","text":"#EAEAEB","muted":"#A2A2A9","accent":"#E0A83C","accentBright":"#EBC782","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Blueprint","slug":"blueprint","c":{"bg":"#15202E","surface":"#1A2839","text":"#E8EAED","muted":"#9DA5AF","accent":"#52C2F0","accentBright":"#9DDCF7","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Cassette","slug":"cassette","c":{"bg":"#231F1A","surface":"#2B2620","text":"#EFE4D2","muted":"#AFA69D","accent":"#E8853C","accentBright":"#F1B385","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Clay","slug":"clay","c":{"bg":"#24201E","surface":"#2D2825","text":"#EDEAE9","muted":"#AFA39D","accent":"#C97B5A","accentBright":"#DDAC97","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Cobalt Hour","slug":"cobalt-hour","c":{"bg":"#181F2F","surface":"#1E263A","text":"#E8E9ED","muted":"#9DA2AF","accent":"#4D7CFE","accentBright":"#9EB8FE","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Concrete","slug":"concrete","c":{"bg":"#222425","surface":"#2A2D2E","text":"#EAEBEB","muted":"#A2A6A9","accent":"#7FA6B8","accentBright":"#B3CAD5","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Coral","slug":"coral","c":{"bg":"#221D1C","surface":"#2A2423","text":"#EDE9E9","muted":"#AFA09D","accent":"#F08060","accentBright":"#F7BCAB","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Crossfade","slug":"crossfade","c":{"bg":"#1A1A1E","surface":"#202025","text":"#E9E9EC","muted":"#9F9FAD","accent":"#3EC8E8","accentBright":"#87DDF1","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Deep Field","slug":"deep-field","c":{"bg":"#141724","surface":"#191C2D","text":"#E8E9ED","muted":"#9DA0AF","accent":"#7A8CFF","accentBright":"#CCD3FF","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Dubplate","slug":"dubplate","c":{"bg":"#1B1A18","surface":"#21201E","text":"#ECEBE9","muted":"#ABA8A0","accent":"#E8D44A","accentBright":"#F1E592","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Ember","slug":"ember","c":{"bg":"#1F1A19","surface":"#26201F","text":"#EDE9E8","muted":"#AFA19D","accent":"#E8703C","accentBright":"#F1A685","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Fathom","slug":"fathom","c":{"bg":"#121B21","surface":"#162129","text":"#E8EBED","muted":"#9DA7AF","accent":"#38A8C8","accentBright":"#78C4DA","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Fjord","slug":"fjord","c":{"bg":"#1B2128","surface":"#212932","text":"#E8EBED","muted":"#9DA6AF","accent":"#5A9EC8","accentBright":"#97C2DC","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Furnace","slug":"furnace","c":{"bg":"#1E1516","surface":"#251A1B","text":"#EDE8E8","muted":"#AF9D9E","accent":"#FF5A36","accentBright":"#FF9D88","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Glacier","slug":"glacier","c":{"bg":"#1F2529","surface":"#262E33","text":"#E8ECED","muted":"#9DA9AF","accent":"#A8DCE8","accentBright":"#E9F6F9","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Graphite","slug":"graphite","c":{"bg":"#1D1E20","surface":"#242528","text":"#E9EAEC","muted":"#A0A4AB","accent":"#C9CFD6","accentBright":"#F7F8F9","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Greenhouse","slug":"greenhouse","c":{"bg":"#1A2320","surface":"#202B28","text":"#E8EDEC","muted":"#9DAFA9","accent":"#58C89A","accentBright":"#95DCBF","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Harbor","slug":"harbor","c":{"bg":"#1D242A","surface":"#242D34","text":"#E8EBED","muted":"#9DA6AF","accent":"#62A8D8","accentBright":"#A3CCE8","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Hearth","slug":"hearth","c":{"bg":"#1D1C1B","surface":"#242321","text":"#ECEBEA","muted":"#AAA6A1","accent":"#E07840","accentBright":"#EBAA86","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Ink","slug":"ink","c":{"bg":"#161A22","surface":"#1B202A","text":"#E8E9ED","muted":"#9DA2AF","accent":"#A9B8CE","accentBright":"#DDE3EC","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Iris","slug":"iris","c":{"bg":"#181825","surface":"#1E1E2E","text":"#E8E8ED","muted":"#9D9DAF","accent":"#8C8CE8","accentBright":"#D0D0F6","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Lagoon","slug":"lagoon","c":{"bg":"#152023","surface":"#1A282B","text":"#E8ECED","muted":"#9DAAAF","accent":"#4FD8E8","accentBright":"#97E8F1","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Lichen","slug":"lichen","c":{"bg":"#20241E","surface":"#282D25","text":"#EAECE9","muted":"#A3AD9F","accent":"#AFC49A","accentBright":"#D8E2CE","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Moss","slug":"moss","c":{"bg":"#1E241F","surface":"#252D26","text":"#E9EDE9","muted":"#9DAFA0","accent":"#93BF6F","accentBright":"#BDD8A7","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Mulberry","slug":"mulberry","c":{"bg":"#24191F","surface":"#2D1F26","text":"#EDE8EB","muted":"#AF9DA6","accent":"#D05880","accentBright":"#E298B0","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Nachtschicht","slug":"nachtschicht","c":{"bg":"#1B1E22","surface":"#21252A","text":"#E8EAED","muted":"#9DA4AF","accent":"#E3B341","accentBright":"#EDCF88","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Night Vision","slug":"night-vision","c":{"bg":"#151916","surface":"#1A1F1B","text":"#E9ECEA","muted":"#9FADA3","accent":"#52E07A","accentBright":"#97ECAF","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Nightshade","slug":"nightshade","c":{"bg":"#19161D","surface":"#1F1B24","text":"#EBE8ED","muted":"#A69DAF","accent":"#8656C6","accentBright":"#B293DB","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Off Air","slug":"off-air","c":{"bg":"#201E1D","surface":"#282524","text":"#ECEAEA","muted":"#AAA4A1","accent":"#D35147","accentBright":"#E38F89","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Orchid","slug":"orchid","c":{"bg":"#1F1820","surface":"#261E28","text":"#EDE8ED","muted":"#AC9DAF","accent":"#C86AD8","accentBright":"#E0ABE9","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Oxide","slug":"oxide","c":{"bg":"#221D1C","surface":"#2A2423","text":"#EDE9E9","muted":"#AFA09D","accent":"#C16044","accentBright":"#D59481","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Petrol","slug":"petrol","c":{"bg":"#152528","surface":"#1A2E32","text":"#E8EDED","muted":"#9DACAF","accent":"#2FB8C6","accentBright":"#6BD1DC","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Plasma","slug":"plasma","c":{"bg":"#221622","surface":"#2A1B2A","text":"#EDE8ED","muted":"#AF9DAF","accent":"#E858C8","accentBright":"#F2A0E0","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Signal Red","slug":"signal-red","c":{"bg":"#1A1B1E","surface":"#202125","text":"#E9EAEC","muted":"#A0A2AB","accent":"#E5484D","accentBright":"#EF8F92","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Sonar","slug":"sonar","c":{"bg":"#121921","surface":"#161F29","text":"#E8EBED","muted":"#9DA6AF","accent":"#40E0C0","accentBright":"#86EBD7","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Soot","slug":"soot","c":{"bg":"#1C1917","surface":"#231F1C","text":"#EDEAE9","muted":"#AFA49D","accent":"#9C958C","accentBright":"#C2BDB8","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Static","slug":"static","c":{"bg":"#212121","surface":"#292929","text":"#EBEBEB","muted":"#A6A6A6","accent":"#E4E6E8","accentBright":"#FFFFFF","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Terminal","slug":"terminal","c":{"bg":"#171C17","surface":"#1C231C","text":"#E9EDE9","muted":"#9DAF9D","accent":"#33D17A","accentBright":"#76E0A5","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Tidepool","slug":"tidepool","c":{"bg":"#162222","surface":"#1B2A2A","text":"#E8EDED","muted":"#9DAFAF","accent":"#3FC8B0","accentBright":"#7EDACA","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Tungsten","slug":"tungsten","c":{"bg":"#1C1A17","surface":"#23201C","text":"#ECEBE9","muted":"#ADA69F","accent":"#FFB374","accentBright":"#FFE0C6","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Ultraviolet","slug":"ultraviolet","c":{"bg":"#1B1523","surface":"#211A2B","text":"#EAE8ED","muted":"#A49DAF","accent":"#9D6BFF","accentBright":"#D3BDFF","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Undergrowth","slug":"undergrowth","c":{"bg":"#18201C","surface":"#1E2823","text":"#E8EDEB","muted":"#9DAFA6","accent":"#4FA872","accentBright":"#84C59D","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Undertow","slug":"undertow","c":{"bg":"#151E23","surface":"#1A252B","text":"#E8ECED","muted":"#9DA9AF","accent":"#A8D8E8","accentBright":"#E9F5F9","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Velvet","slug":"velvet","c":{"bg":"#231C26","surface":"#2B232F","text":"#ECE8ED","muted":"#A99DAF","accent":"#C0A8E8","accentBright":"#EFE9F9","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"Verdigris","slug":"verdigris","c":{"bg":"#1C2625","surface":"#232F2E","text":"#E8EDED","muted":"#9DAFAC","accent":"#6FC4A8","accentBright":"#A9DCCB","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}},{"name":"VU Meter","slug":"vu-meter","c":{"bg":"#161617","surface":"#1B1B1C","text":"#EAEAEB","muted":"#A4A4A8","accent":"#46D160","accentBright":"#87E198","red":"#E5484D","green":"#33D17A","yellow":"#E3B341","blue":"#4D7CFE","magenta":"#C86AD8","cyan":"#3FC8B0"}}];
+const term = document.getElementById('term'), sws = document.getElementById('sws');
+function apply(t, el){
+  const c = t.c, s = term.style;
+  const set = (k,v)=>s.setProperty(k,v);
+  set('--t-bg',c.bg); set('--t-surf',c.surface); set('--t-fg',c.text);
+  set('--t-mute',c.muted); set('--t-dim',c.muted); set('--t-acc',c.accent);
+  set('--t-red',c.red); set('--t-grn',c.green); set('--t-yel',c.yellow);
+  set('--t-blu',c.blue); set('--t-mag',c.magenta); set('--t-cya',c.cyan);
+  set('--t-line',c.surface);
+  document.getElementById('tname').textContent = t.name;
+  document.getElementById('tslug').textContent = './install.sh ' + t.slug;
+  document.getElementById('tbar-t').textContent = 'zsh — ' + t.slug;
+  document.querySelectorAll('.sw.on').forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+}
+T.forEach(function(t,i){
+  const b=document.createElement('button'); b.className='sw';
+  b.style.setProperty('--b', t.c.surface); b.style.setProperty('--i', t.c.text);
+  b.innerHTML='<div class="chips">'+
+    '<i style="background:'+t.c.accent+'"></i>'+
+    '<i style="background:'+t.c.green+'"></i>'+
+    '<i style="background:'+t.c.magenta+'"></i>'+
+    '<i style="background:'+t.c.bg+';border:1px solid '+t.c.muted+'44"></i>'+
+    '</div><div class="nm">'+t.name+'</div>';
+  b.addEventListener('click',function(){apply(t,b);});
+  sws.appendChild(b);
+  if(i===0) apply(t,b);
+});
+</script>
+</body>
+</html>
