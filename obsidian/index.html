@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Obsidian Themes — 50 themes with a live preview</title>
+<style>
+:root{--pg:#0b0c0e;--card:#131519;--hair:#242932;--ink:#ECEEF0;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--pg);color:var(--ink);font-family:var(--sans);line-height:1.6;padding:56px 22px}
+.wrap{max-width:1120px;margin:0 auto}
+h1{font-size:34px;font-weight:800;letter-spacing:-1.1px}
+.sub{margin-top:12px;color:var(--mute);font-size:16.5px;max-width:66ch}
+h2{margin-top:44px;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--acc);font-weight:800}
+
+/* preview */
+.preview{margin-top:16px;border:1px solid var(--hair);border-radius:12px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.ob{display:grid;grid-template-columns:212px 1fr 168px;min-height:396px;
+  background:var(--t-bg);color:var(--t-text);font-size:13.5px}
+.ob .side{background:var(--t-surf);border-right:1px solid var(--t-border);padding:14px 12px}
+.ob .side .h{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--t-faint);font-weight:800;margin:12px 0 6px}
+.ob .side .h:first-child{margin-top:0}
+.ob .side .f{padding:4px 8px;border-radius:6px;color:var(--t-muted)}
+.ob .side .f.on{background:color-mix(in srgb,var(--t-acc) 14%,transparent);color:var(--t-text)}
+.ob .doc{padding:20px 24px;min-width:0}
+.ob .doc h3{font-size:22px;font-weight:750;letter-spacing:-.5px;color:var(--t-text);margin-bottom:4px}
+.ob .doc .meta{font-size:11.5px;color:var(--t-faint);font-family:var(--mono)}
+.ob .doc p{margin-top:12px;color:var(--t-muted)}
+.ob .doc a{color:var(--t-acc);text-decoration:none}
+.ob .doc .ext{color:var(--t-ext)}
+.ob .tag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;
+  color:var(--t-tag);background:color-mix(in srgb,var(--t-tag) 13%,transparent);margin-right:5px}
+.ob blockquote{margin-top:12px;padding:6px 0 6px 12px;border-left:2px solid var(--t-acc);color:var(--t-muted)}
+.ob pre{margin-top:14px;background:var(--t-surf);border:1px solid var(--t-border);border-radius:8px;
+  padding:11px 13px;font-family:var(--mono);font-size:12px;overflow-x:auto;color:var(--t-text)}
+.ob .k{color:var(--t-kw)} .ob .s{color:var(--t-str)} .ob .fn{color:var(--t-fn)} .ob .c{color:var(--t-faint)}
+.ob .right{border-left:1px solid var(--t-border);padding:14px 12px;background:var(--t-surf)}
+.ob .right .h{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--t-faint);font-weight:800}
+.ob .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.ob .row{margin-top:8px;color:var(--t-muted);font-size:12.5px}
+.ob .btn{margin-top:14px;display:inline-block;background:var(--t-acc);color:var(--t-on);
+  font-weight:650;font-size:12.5px;padding:5px 12px;border-radius:7px}
+.now{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.now b{font-size:17px}
+.now code{font-family:var(--mono);font-size:12px;color:var(--mute)}
+
+/* swatches */
+.sws{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(152px,1fr));gap:11px}
+.sw{border:1px solid var(--hair);border-radius:9px;padding:11px;cursor:pointer;text-align:left;
+  background:var(--b);transition:transform .12s,border-color .12s}
+.sw:hover{transform:translateY(-2px);border-color:var(--acc)}
+.sw.on{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.sw .chips{display:flex;gap:4px}
+.sw .chips i{width:14px;height:14px;border-radius:4px;display:block}
+.sw .nm{margin-top:9px;font-size:13px;font-weight:650;color:var(--i)}
+ol{margin-top:14px;padding-left:20px}
+li{color:var(--mute);font-size:15px;line-height:1.75;margin-bottom:5px}
+li b{color:var(--ink)}
+code.inline{font-family:var(--mono);font-size:13px;background:#171a20;border:1px solid var(--hair);
+  border-radius:5px;padding:1px 6px;color:var(--ink)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Dark Obsidian Themes</h1>
+  <p class="sub">Fifty themes for Obsidian, from the same palettes as the terminal, VS Code and
+  template range. Click a swatch — the preview below is rendered with that theme's real values,
+  read straight out of its <code class="inline">theme.css</code>.</p>
+
+  <div class="now"><b id="tname">—</b><code id="tfile">themes/…/theme.css</code></div>
+
+  <div class="preview">
+    <div class="ob" id="ob">
+      <div class="side">
+        <div class="h">Vault</div>
+        <div class="f">Daily notes</div>
+        <div class="f on">Meeting — Q3 planning</div>
+        <div class="f">Reading list</div>
+        <div class="f">Projects</div>
+        <div class="h">Tags</div>
+        <div class="f">#research</div>
+        <div class="f">#draft</div>
+      </div>
+      <div class="doc">
+        <h3>Meeting — Q3 planning</h3>
+        <div class="meta">2026-08-18 · 4 backlinks</div>
+        <p><span class="tag">#research</span><span class="tag">#draft</span></p>
+        <p>Agreed the forecast ranges ship before the connector work. See
+          <a href="#">[[Forecast ranges]]</a> and the
+          <a href="#" class="ext">upstream issue</a> for the numbers.</p>
+        <blockquote>Order to P90 only when a stockout costs more than carrying the stock.</blockquote>
+        <pre><span class="c"># derive the range</span>
+<span class="k">def</span> <span class="fn">band</span>(sku, horizon=<span class="s">28</span>):
+    <span class="k">return</span> forecast(sku, horizon).<span class="fn">quantiles</span>(<span class="s">[.1, .5, .9]</span>)</pre>
+      </div>
+      <div class="right">
+        <div class="h">Outline</div>
+        <div class="row">Decisions</div>
+        <div class="row">Open questions</div>
+        <div class="row">Next steps</div>
+        <div class="h" style="margin-top:16px">Status</div>
+        <div class="row"><span class="dot" style="background:var(--t-ok)"></span>Synced</div>
+        <div class="row"><span class="dot" style="background:var(--t-warn)"></span>2 conflicts</div>
+        <div class="btn">Open graph</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>All 50 themes</h2>
+  <div class="sws" id="sws"></div>
+
+  <h2>Installing</h2>
+  <ol>
+    <li>Copy a theme folder into <code class="inline">&lt;your vault&gt;/.obsidian/themes/</code></li>
+    <li>Obsidian → <b>Settings → Appearance → Themes</b> → pick it</li>
+    <li>Make sure <b>Base color scheme</b> is set to <b>Dark</b></li>
+  </ol>
+  <p class="sub" style="margin-top:12px">Or run <code class="inline">./install.sh /path/to/vault</code>
+  from the pack to copy all fifty at once.</p>
+
+  <footer>
+    Dark Obsidian Themes · 50 themes, each a folder with <code class="inline">manifest.json</code>
+    and <code class="inline">theme.css</code>.<br>
+    The preview above is an approximation of Obsidian's interface for colour comparison — it is not Obsidian.
+  </footer>
+</div>
+
+<script>
+const THEMES = [{"name":"Absinthe","v":{"--background-primary":"#1D1F19","--background-secondary":"#24261F","--background-modifier-border":"#44463F","--text-normal":"#EBEDE8","--text-muted":"#A9AF9D","--text-faint":"#6A6E62","--text-accent":"#C0D648","--interactive-accent":"#C0D648","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C0D648"}},{"name":"Acid","v":{"--background-primary":"#191B13","--background-secondary":"#1F2117","--background-modifier-border":"#404238","--text-normal":"#EDEDE8","--text-muted":"#ACAF9D","--text-faint":"#6A6C5F","--text-accent":"#C8E62E","--interactive-accent":"#C8E62E","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C8E62E"}},{"name":"Amber Room","v":{"--background-primary":"#201D18","--background-secondary":"#28241E","--background-modifier-border":"#48443E","--text-normal":"#EDEBE8","--text-muted":"#AFA79D","--text-faint":"#6F6961","--text-accent":"#E0A83C","--interactive-accent":"#E0A83C","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E0A83C"}},{"name":"Anaglyph","v":{"--background-primary":"#18181B","--background-secondary":"#1E1E21","--background-modifier-border":"#3E3E41","--text-normal":"#E9E9EC","--text-muted":"#A0A0AB","--text-faint":"#63636A","--text-accent":"#FF5548","--interactive-accent":"#FF5548","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#FF5548"}},{"name":"Blackout","v":{"--background-primary":"#141415","--background-secondary":"#19191A","--background-modifier-border":"#3A3A3B","--text-normal":"#EAEAEB","--text-muted":"#A2A2A9","--text-faint":"#626266","--text-accent":"#E0A83C","--interactive-accent":"#E0A83C","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E0A83C"}},{"name":"Blueprint","v":{"--background-primary":"#15202E","--background-secondary":"#1A2839","--background-modifier-border":"#3B4756","--text-normal":"#E8EAED","--text-muted":"#9DA5AF","--text-faint":"#606975","--text-accent":"#52C2F0","--interactive-accent":"#52C2F0","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#52C2F0"}},{"name":"Cassette","v":{"--background-primary":"#231F1A","--background-secondary":"#2B2620","--background-modifier-border":"#4A443C","--text-normal":"#EFE4D2","--text-muted":"#AFA69D","--text-faint":"#706962","--text-accent":"#E8853C","--interactive-accent":"#E8853C","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E8853C"}},{"name":"Clay","v":{"--background-primary":"#24201E","--background-secondary":"#2D2825","--background-modifier-border":"#4C4744","--text-normal":"#EDEAE9","--text-muted":"#AFA39D","--text-faint":"#706864","--text-accent":"#C97B5A","--interactive-accent":"#C97B5A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C97B5A"}},{"name":"Cobalt Hour","v":{"--background-primary":"#181F2F","--background-secondary":"#1E263A","--background-modifier-border":"#3E4557","--text-normal":"#E8E9ED","--text-muted":"#9DA2AF","--text-faint":"#616775","--text-accent":"#4D7CFE","--interactive-accent":"#4D7CFE","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#4D7CFE"}},{"name":"Concrete","v":{"--background-primary":"#222425","--background-secondary":"#2A2D2E","--background-modifier-border":"#494B4C","--text-normal":"#EAEBEB","--text-muted":"#A2A6A9","--text-faint":"#686C6E","--text-accent":"#7FA6B8","--interactive-accent":"#7FA6B8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#7FA6B8"}},{"name":"Coral","v":{"--background-primary":"#221D1C","--background-secondary":"#2A2423","--background-modifier-border":"#494443","--text-normal":"#EDE9E9","--text-muted":"#AFA09D","--text-faint":"#706563","--text-accent":"#F08060","--interactive-accent":"#F08060","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#F08060"}},{"name":"Crossfade","v":{"--background-primary":"#1A1A1E","--background-secondary":"#202025","--background-modifier-border":"#404045","--text-normal":"#E9E9EC","--text-muted":"#9F9FAD","--text-faint":"#63636D","--text-accent":"#3EC8E8","--interactive-accent":"#3EC8E8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#3EC8E8"}},{"name":"Deep Field","v":{"--background-primary":"#141724","--background-secondary":"#191C2D","--background-modifier-border":"#3A3D4C","--text-normal":"#E8E9ED","--text-muted":"#9DA0AF","--text-faint":"#5F6270","--text-accent":"#7A8CFF","--interactive-accent":"#7A8CFF","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#7A8CFF"}},{"name":"Dubplate","v":{"--background-primary":"#1B1A18","--background-secondary":"#21201E","--background-modifier-border":"#41403E","--text-normal":"#ECEBE9","--text-muted":"#ABA8A0","--text-faint":"#6A6863","--text-accent":"#E8D44A","--interactive-accent":"#E8D44A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E8D44A"}},{"name":"Ember","v":{"--background-primary":"#1F1A19","--background-secondary":"#26201F","--background-modifier-border":"#46403F","--text-normal":"#EDE9E8","--text-muted":"#AFA19D","--text-faint":"#6E6462","--text-accent":"#E8703C","--interactive-accent":"#E8703C","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E8703C"}},{"name":"Fathom","v":{"--background-primary":"#121B21","--background-secondary":"#162129","--background-modifier-border":"#384148","--text-normal":"#E8EBED","--text-muted":"#9DA7AF","--text-faint":"#5E686F","--text-accent":"#38A8C8","--interactive-accent":"#38A8C8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#38A8C8"}},{"name":"Fjord","v":{"--background-primary":"#1B2128","--background-secondary":"#212932","--background-modifier-border":"#414850","--text-normal":"#E8EBED","--text-muted":"#9DA6AF","--text-faint":"#626A72","--text-accent":"#5A9EC8","--interactive-accent":"#5A9EC8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#5A9EC8"}},{"name":"Furnace","v":{"--background-primary":"#1E1516","--background-secondary":"#251A1B","--background-modifier-border":"#453B3C","--text-normal":"#EDE8E8","--text-muted":"#AF9D9E","--text-faint":"#6E6061","--text-accent":"#FF5A36","--interactive-accent":"#FF5A36","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#FF5A36"}},{"name":"Glacier","v":{"--background-primary":"#1F2529","--background-secondary":"#262E33","--background-modifier-border":"#454C51","--text-normal":"#E8ECED","--text-muted":"#9DA9AF","--text-faint":"#646E73","--text-accent":"#A8DCE8","--interactive-accent":"#A8DCE8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#A8DCE8"}},{"name":"Graphite","v":{"--background-primary":"#1D1E20","--background-secondary":"#242528","--background-modifier-border":"#444547","--text-normal":"#E9EAEC","--text-muted":"#A0A4AB","--text-faint":"#65686C","--text-accent":"#C9CFD6","--interactive-accent":"#C9CFD6","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C9CFD6"}},{"name":"Greenhouse","v":{"--background-primary":"#1A2320","--background-secondary":"#202B28","--background-modifier-border":"#404A47","--text-normal":"#E8EDEC","--text-muted":"#9DAFA9","--text-faint":"#62706B","--text-accent":"#58C89A","--interactive-accent":"#58C89A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#58C89A"}},{"name":"Harbor","v":{"--background-primary":"#1D242A","--background-secondary":"#242D34","--background-modifier-border":"#434B52","--text-normal":"#E8EBED","--text-muted":"#9DA6AF","--text-faint":"#636C73","--text-accent":"#62A8D8","--interactive-accent":"#62A8D8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#62A8D8"}},{"name":"Hearth","v":{"--background-primary":"#1D1C1B","--background-secondary":"#242321","--background-modifier-border":"#444341","--text-normal":"#ECEBEA","--text-muted":"#AAA6A1","--text-faint":"#6B6865","--text-accent":"#E07840","--interactive-accent":"#E07840","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E07840"}},{"name":"Ink","v":{"--background-primary":"#161A22","--background-secondary":"#1B202A","--background-modifier-border":"#3C4049","--text-normal":"#E8E9ED","--text-muted":"#9DA2AF","--text-faint":"#606570","--text-accent":"#A9B8CE","--interactive-accent":"#A9B8CE","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#A9B8CE"}},{"name":"Iris","v":{"--background-primary":"#181825","--background-secondary":"#1E1E2E","--background-modifier-border":"#3E3E4D","--text-normal":"#E8E8ED","--text-muted":"#9D9DAF","--text-faint":"#616171","--text-accent":"#8C8CE8","--interactive-accent":"#8C8CE8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#8C8CE8"}},{"name":"Lagoon","v":{"--background-primary":"#152023","--background-secondary":"#1A282B","--background-modifier-border":"#3B474A","--text-normal":"#E8ECED","--text-muted":"#9DAAAF","--text-faint":"#606C70","--text-accent":"#4FD8E8","--interactive-accent":"#4FD8E8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#4FD8E8"}},{"name":"Lichen","v":{"--background-primary":"#20241E","--background-secondary":"#282D25","--background-modifier-border":"#474C44","--text-normal":"#EAECE9","--text-muted":"#A3AD9F","--text-faint":"#686F65","--text-accent":"#AFC49A","--interactive-accent":"#AFC49A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#AFC49A"}},{"name":"Moss","v":{"--background-primary":"#1E241F","--background-secondary":"#252D26","--background-modifier-border":"#444C45","--text-normal":"#E9EDE9","--text-muted":"#9DAFA0","--text-faint":"#647066","--text-accent":"#93BF6F","--interactive-accent":"#93BF6F","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#93BF6F"}},{"name":"Mulberry","v":{"--background-primary":"#24191F","--background-secondary":"#2D1F26","--background-modifier-border":"#4C3F46","--text-normal":"#EDE8EB","--text-muted":"#AF9DA6","--text-faint":"#706269","--text-accent":"#D05880","--interactive-accent":"#D05880","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#D05880"}},{"name":"Nachtschicht","v":{"--background-primary":"#1B1E22","--background-secondary":"#21252A","--background-modifier-border":"#414549","--text-normal":"#E8EAED","--text-muted":"#9DA4AF","--text-faint":"#626870","--text-accent":"#E3B341","--interactive-accent":"#E3B341","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E3B341"}},{"name":"Night Vision","v":{"--background-primary":"#151916","--background-secondary":"#1A1F1B","--background-modifier-border":"#3B403C","--text-normal":"#E9ECEA","--text-muted":"#9FADA3","--text-faint":"#616A64","--text-accent":"#52E07A","--interactive-accent":"#52E07A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#52E07A"}},{"name":"Nightshade","v":{"--background-primary":"#19161D","--background-secondary":"#1F1B24","--background-modifier-border":"#403C44","--text-normal":"#EBE8ED","--text-muted":"#A69DAF","--text-faint":"#67606D","--text-accent":"#8656C6","--interactive-accent":"#8656C6","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#8656C6"}},{"name":"Off Air","v":{"--background-primary":"#201E1D","--background-secondary":"#282524","--background-modifier-border":"#474544","--text-normal":"#ECEAEA","--text-muted":"#AAA4A1","--text-faint":"#6C6866","--text-accent":"#D35147","--interactive-accent":"#D35147","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#D35147"}},{"name":"Orchid","v":{"--background-primary":"#1F1820","--background-secondary":"#261E28","--background-modifier-border":"#463E48","--text-normal":"#EDE8ED","--text-muted":"#AC9DAF","--text-faint":"#6D616F","--text-accent":"#C86AD8","--interactive-accent":"#C86AD8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C86AD8"}},{"name":"Oxide","v":{"--background-primary":"#221D1C","--background-secondary":"#2A2423","--background-modifier-border":"#494443","--text-normal":"#EDE9E9","--text-muted":"#AFA09D","--text-faint":"#706563","--text-accent":"#C16044","--interactive-accent":"#C16044","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C16044"}},{"name":"Petrol","v":{"--background-primary":"#152528","--background-secondary":"#1A2E32","--background-modifier-border":"#3B4D50","--text-normal":"#E8EDED","--text-muted":"#9DACAF","--text-faint":"#606F72","--text-accent":"#2FB8C6","--interactive-accent":"#2FB8C6","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#2FB8C6"}},{"name":"Plasma","v":{"--background-primary":"#221622","--background-secondary":"#2A1B2A","--background-modifier-border":"#493C49","--text-normal":"#EDE8ED","--text-muted":"#AF9DAF","--text-faint":"#706070","--text-accent":"#E858C8","--interactive-accent":"#E858C8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E858C8"}},{"name":"Signal Red","v":{"--background-primary":"#1A1B1E","--background-secondary":"#202125","--background-modifier-border":"#404145","--text-normal":"#E9EAEC","--text-muted":"#A0A2AB","--text-faint":"#64656C","--text-accent":"#E5484D","--interactive-accent":"#E5484D","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E5484D"}},{"name":"Sonar","v":{"--background-primary":"#121921","--background-secondary":"#161F29","--background-modifier-border":"#384048","--text-normal":"#E8EBED","--text-muted":"#9DA6AF","--text-faint":"#5E676F","--text-accent":"#40E0C0","--interactive-accent":"#40E0C0","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#40E0C0"}},{"name":"Soot","v":{"--background-primary":"#1C1917","--background-secondary":"#231F1C","--background-modifier-border":"#433F3D","--text-normal":"#EDEAE9","--text-muted":"#AFA49D","--text-faint":"#6D6561","--text-accent":"#9C958C","--interactive-accent":"#9C958C","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#9C958C"}},{"name":"Static","v":{"--background-primary":"#212121","--background-secondary":"#292929","--background-modifier-border":"#484848","--text-normal":"#EBEBEB","--text-muted":"#A6A6A6","--text-faint":"#6A6A6A","--text-accent":"#E4E6E8","--interactive-accent":"#E4E6E8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#E4E6E8"}},{"name":"Terminal","v":{"--background-primary":"#171C17","--background-secondary":"#1C231C","--background-modifier-border":"#3D433D","--text-normal":"#E9EDE9","--text-muted":"#9DAF9D","--text-faint":"#616D61","--text-accent":"#33D17A","--interactive-accent":"#33D17A","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#33D17A"}},{"name":"Tidepool","v":{"--background-primary":"#162222","--background-secondary":"#1B2A2A","--background-modifier-border":"#3C4949","--text-normal":"#E8EDED","--text-muted":"#9DAFAF","--text-faint":"#607070","--text-accent":"#3FC8B0","--interactive-accent":"#3FC8B0","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#3FC8B0"}},{"name":"Tungsten","v":{"--background-primary":"#1C1A17","--background-secondary":"#23201C","--background-modifier-border":"#43403D","--text-normal":"#ECEBE9","--text-muted":"#ADA69F","--text-faint":"#6C6762","--text-accent":"#FFB374","--interactive-accent":"#FFB374","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#FFB374"}},{"name":"Ultraviolet","v":{"--background-primary":"#1B1523","--background-secondary":"#211A2B","--background-modifier-border":"#413B4A","--text-normal":"#EAE8ED","--text-muted":"#A49DAF","--text-faint":"#666070","--text-accent":"#9D6BFF","--interactive-accent":"#9D6BFF","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#9D6BFF"}},{"name":"Undergrowth","v":{"--background-primary":"#18201C","--background-secondary":"#1E2823","--background-modifier-border":"#3E4843","--text-normal":"#E8EDEB","--text-muted":"#9DAFA6","--text-faint":"#616F68","--text-accent":"#4FA872","--interactive-accent":"#4FA872","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#4FA872"}},{"name":"Undertow","v":{"--background-primary":"#151E23","--background-secondary":"#1A252B","--background-modifier-border":"#3B454A","--text-normal":"#E8ECED","--text-muted":"#9DA9AF","--text-faint":"#606A70","--text-accent":"#A8D8E8","--interactive-accent":"#A8D8E8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#A8D8E8"}},{"name":"VU Meter","v":{"--background-primary":"#161617","--background-secondary":"#1B1B1C","--background-modifier-border":"#3C3C3D","--text-normal":"#EAEAEB","--text-muted":"#A4A4A8","--text-faint":"#646467","--text-accent":"#46D160","--interactive-accent":"#46D160","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#46D160"}},{"name":"Velvet","v":{"--background-primary":"#231C26","--background-secondary":"#2B232F","--background-modifier-border":"#4A434D","--text-normal":"#ECE8ED","--text-muted":"#A99DAF","--text-faint":"#6D6371","--text-accent":"#C0A8E8","--interactive-accent":"#C0A8E8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#C0A8E8"}},{"name":"Verdigris","v":{"--background-primary":"#1C2625","--background-secondary":"#232F2E","--background-modifier-border":"#434D4D","--text-normal":"#E8EDED","--text-muted":"#9DAFAC","--text-faint":"#63716F","--text-accent":"#6FC4A8","--interactive-accent":"#6FC4A8","--code-string":"#33D17A","--code-keyword":"#C86AD8","--code-function":"#4D7CFE","--text-error":"#E5484D","--text-warning":"#E3B341","--link-external-color":"#3FC8B0","--tag-color":"#6FC4A8"}}];
+const ob = document.getElementById('ob');
+const sws = document.getElementById('sws');
+
+function apply(t, el){
+  const v = t.v;
+  const s = ob.style;
+  s.setProperty('--t-bg',     v['--background-primary']);
+  s.setProperty('--t-surf',   v['--background-secondary']);
+  s.setProperty('--t-border', v['--background-modifier-border']);
+  s.setProperty('--t-text',   v['--text-normal']);
+  s.setProperty('--t-muted',  v['--text-muted']);
+  s.setProperty('--t-faint',  v['--text-faint']);
+  s.setProperty('--t-acc',    v['--text-accent']);
+  s.setProperty('--t-on',     v['--background-primary']);
+  s.setProperty('--t-str',    v['--code-string']);
+  s.setProperty('--t-kw',     v['--code-keyword']);
+  s.setProperty('--t-fn',     v['--code-function']);
+  s.setProperty('--t-ok',     v['--code-string']);
+  s.setProperty('--t-warn',   v['--text-warning']);
+  s.setProperty('--t-ext',    v['--link-external-color']);
+  s.setProperty('--t-tag',    v['--tag-color']);
+  document.getElementById('tname').textContent = t.name;
+  document.getElementById('tfile').textContent = 'themes/' + t.name + '/theme.css';
+  document.querySelectorAll('.sw.on').forEach(x => x.classList.remove('on'));
+  if (el) el.classList.add('on');
+}
+
+THEMES.forEach(function (t, i) {
+  const b = document.createElement('button');
+  b.className = 'sw';
+  b.style.setProperty('--b', t.v['--background-secondary']);
+  b.style.setProperty('--i', t.v['--text-normal']);
+  b.innerHTML = '<div class="chips">' +
+    '<i style="background:' + t.v['--text-accent'] + '"></i>' +
+    '<i style="background:' + t.v['--code-string'] + '"></i>' +
+    '<i style="background:' + t.v['--code-keyword'] + '"></i>' +
+    '<i style="background:' + t.v['--background-primary'] +
+      ';border:1px solid ' + t.v['--background-modifier-border'] + '"></i>' +
+    '</div><div class="nm">' + t.name + '</div>';
+  b.addEventListener('click', function () { apply(t, b); });
+  sws.appendChild(b);
+  if (i === 0) apply(t, b);
+});
+</script>
+</body>
+</html>
