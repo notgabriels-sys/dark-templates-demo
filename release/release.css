@@ -1,0 +1,111 @@
+/* Dark Music Release Kit — shared stylesheet
+   Dark on screen. Clean black-on-white when printed or saved to PDF.
+   Print: Cmd/Ctrl+P → Save as PDF → Margins Default → Background graphics OFF.
+   Rules and bars print as BORDERS, not fills, so they survive that setting. */
+
+:root{
+  --bg:#0a0b0d; --page:#131519; --hair:#252a33; --hair-soft:#1c2028;
+  --ink:#ECEEF0; --muted:#98a0ab; --faint:#67707c;
+  --accent:#E8455F; --accent-2:#FF8AA0; --good:#3FB984; --warn:#E0A33E;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--font);color:var(--ink);
+     display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 16px;
+     -webkit-font-smoothing:antialiased}
+.hint{color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:1.5px;
+      text-transform:uppercase;text-align:center;max-width:210mm}
+
+.page{width:210mm;min-height:297mm;background:var(--page);color:var(--ink);
+      padding:17mm 16mm;border:1px solid var(--hair);border-radius:4px;
+      display:flex;flex-direction:column}
+
+/* masthead */
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14mm}
+.artist{font-size:26pt;font-weight:800;letter-spacing:-1px;line-height:1}
+.artist .sub{display:block;margin-top:4pt;font-size:10pt;font-weight:600;letter-spacing:2.4px;
+             text-transform:uppercase;color:var(--accent)}
+.doctype{text-align:right;white-space:nowrap}
+.doctype h1{font-size:13pt;font-weight:800;letter-spacing:2.2px;text-transform:uppercase;color:var(--muted)}
+.doctype .no{margin-top:4pt;font-family:var(--mono);font-size:9.5pt;color:var(--faint)}
+
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:7mm;
+      margin-top:10mm;padding:5mm 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta .k{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);font-weight:700}
+.meta .v{margin-top:3pt;font-size:10pt;font-weight:600}
+.meta .v.mono{font-family:var(--mono);font-size:9.5pt}
+
+h2{font-size:8.5pt;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);
+   font-weight:800;margin:9mm 0 4mm;padding-bottom:3pt;border-bottom:1px solid var(--hair)}
+p{font-size:10pt;line-height:1.6;color:var(--muted)}
+p strong,strong{color:var(--ink);font-weight:650}
+.lead{font-size:11pt;line-height:1.62;color:var(--muted)}
+ul{margin:4mm 0 0 5mm;list-style:none}
+li{position:relative;padding-left:6mm;margin-bottom:2.6mm;font-size:10pt;line-height:1.55;color:var(--muted)}
+li::before{content:"";position:absolute;left:0;top:2.1mm;width:2.2mm;height:2.2mm;
+           border:1.2pt solid var(--accent);border-radius:50%}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:11mm}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:9mm}
+
+table{width:100%;border-collapse:collapse;margin-top:4mm}
+th{text-align:left;font-size:7.5pt;letter-spacing:1.3px;text-transform:uppercase;color:var(--faint);
+   font-weight:700;padding:0 6mm 4pt 0;border-bottom:1px solid var(--hair);white-space:nowrap}
+td{padding:5pt 6mm 5pt 0;font-size:9.5pt;border-bottom:1px solid var(--hair-soft);
+   color:var(--muted);vertical-align:top}
+td:first-child{color:var(--ink);font-weight:600}
+th.num,td.num{text-align:right;padding-right:0;font-family:var(--mono);white-space:nowrap}
+td.fill{color:var(--faint)}
+
+.kv{font-size:9.5pt;line-height:1.85;color:var(--muted)}
+.kv b{display:inline-block;min-width:34mm;color:var(--faint);font-weight:700;
+      font-size:7.5pt;letter-spacing:1.3px;text-transform:uppercase}
+.kv span{color:var(--ink)}
+
+.blank{display:inline-block;min-width:52mm;border-bottom:1px solid var(--hair)}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:14mm;margin-top:10mm}
+.sig .line{border-top:1px solid var(--hair);padding-top:4pt;font-size:8.5pt;color:var(--faint)}
+.note{margin-top:6mm;padding:4mm 5mm;border:1px solid var(--hair);border-left:2.5pt solid var(--warn);
+      border-radius:4px}
+.note .k{font-size:7.5pt;letter-spacing:1.4px;text-transform:uppercase;color:var(--warn);font-weight:800}
+.note p{margin-top:2.5pt;font-size:9pt}
+.foot{margin-top:auto;padding-top:8mm;border-top:1px solid var(--hair);
+      font-size:8.5pt;line-height:1.6;color:var(--faint);text-align:center}
+.pill{display:inline-block;font-size:8pt;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+      padding:2pt 7pt;border-radius:999px;border:1.4pt solid var(--accent);color:var(--accent)}
+
+/* ================= PRINT ================= */
+@media print{
+  @page{size:A4;margin:13mm}
+  body{background:#fff;padding:0;display:block;gap:0}
+  .hint{display:none}
+  .page{width:auto;min-height:0;background:#fff;border:0;border-radius:0;padding:0;color:#111;display:block}
+  .artist,td:first-child,strong,.kv span{color:#000}
+  .artist .sub,h2{color:#111}
+  p,li,.kv,td{color:#333}
+  .doctype h1,.doctype .no,.meta .k,th,.foot,td.fill,.sig .line{color:#555}
+  .meta,h2,th,td,.sig .line,.foot,.note,.blank{border-color:#ccc}
+  li::before{border-color:#111}
+  .note{border-left-color:#111}
+  .note .k{color:#111}
+  .pill{border-color:#111;color:#111}
+  a{color:#111;text-decoration:none}
+  tr,.note,.sig{break-inside:avoid}
+  thead{display:table-header-group}
+  /* compaction so a normal document lands on one page */
+  .meta{margin-top:6mm;padding:3.5mm 0}
+  h2{margin:6mm 0 3mm}
+  .foot{padding-top:5mm;margin-top:6mm}
+
+  /* Long documents opt into class="page tight" — slightly denser, still readable. */
+  .page.tight h2{margin:4.5mm 0 2.5mm}
+  .page.tight p,.page.tight li,.page.tight td,.page.tight .kv{font-size:9pt;line-height:1.5}
+  .page.tight .meta{margin-top:5mm;padding:3mm 0}
+  .page.tight td{padding:3.6pt 6mm 3.6pt 0}
+  .page.tight li{margin-bottom:1.8mm}
+  .page.tight .note{margin-top:4mm;padding:3mm 4mm}
+  .page.tight .sig{margin-top:6mm}
+  .page.tight .foot{padding-top:4mm;margin-top:4mm}
+  .page.tight .artist{font-size:22pt}
+}
