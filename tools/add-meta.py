@@ -63,6 +63,10 @@ PAGES = {
    "and copyable examples. Plain HTML, no framework."),
  "docs/changelog.html": ("Changelog — Dark Docs Starter demo",
    "A versioned changelog page from the Dark Docs Starter, with a deprecation notice pattern."),
+ "writing/headless-chrome-never-exits.html": (None,
+   "Headless Chrome writes the PDF and then never exits. A timeout truncates the file silently. "
+   "Wait for the file size to stop changing instead — with the watchdog code, plus the profile-lock "
+   "and page-count traps."),
  "writing/contrast-floors.html": (None,
    "A naive contrast check compares every colour to the background — including the backgrounds. "
    "What the WCAG floors actually are, and the fix that lifts a colour until it passes."),

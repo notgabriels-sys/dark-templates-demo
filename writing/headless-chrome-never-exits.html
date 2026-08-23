@@ -1,0 +1,154 @@
+<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Headless Chrome writes your PDF, then refuses to exit</title>\n<style>
+:root{--bg:#08090b;--card:#101216;--hair:#252b34;--ink:#F2F4F6;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
+--good:#3FB984;--bad:#E8455F;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;padding:64px 22px}
+.wrap{max-width:680px;margin:0 auto}
+.back{font-size:14px;color:var(--mute);text-decoration:none}
+.back:hover{color:var(--ink)}
+h1{margin-top:22px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1.1}
+.meta{margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.4px}
+h2{margin-top:44px;font-size:21px;font-weight:750;letter-spacing:-.5px}
+p{margin-top:16px;color:var(--mute);font-size:16.5px}
+p strong,strong{color:var(--ink);font-weight:650}
+ul{margin:16px 0 0 20px;color:var(--mute);font-size:16.5px}
+li{margin-bottom:7px}
+pre{margin-top:18px;background:#12141a;border:1px solid var(--hair);border-radius:10px;
+ padding:15px 17px;overflow-x:auto;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1.6}
+code{font-family:var(--mono);font-size:14px;background:#12141a;border:1px solid var(--hair);
+ border-radius:5px;padding:1px 6px}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15.5px;display:block;overflow-x:auto}
+th{text-align:left;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--faint);
+ font-weight:800;padding:0 16px 9px 0;border-bottom:1px solid var(--hair);white-space:nowrap}
+td{padding:11px 16px 11px 0;border-bottom:1px solid var(--hair);color:var(--mute);vertical-align:top}
+td:first-child{color:var(--ink);font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.pass{color:var(--good)} .fail{color:var(--bad)}
+.note{margin-top:22px;padding:16px 18px;border:1px solid var(--hair);border-left:3px solid var(--acc);
+ border-radius:8px;font-size:15.5px;color:var(--mute)}
+.note b{color:var(--ink)}
+a{color:var(--acc)}
+.cta{margin-top:44px;padding:22px;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+.cta h3{font-size:17px;font-weight:750}
+.cta p{margin-top:8px;font-size:15px}
+.cta .row{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.cta a.btn{display:inline-block;padding:8px 15px;border:1px solid var(--hair);border-radius:8px;
+ color:var(--ink);text-decoration:none;font-size:14.5px}
+.cta a.btn:hover{border-color:var(--acc)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+</style>\n
+<link rel="canonical" href="https://notgabriels-sys.github.io/dark-templates-demo/writing/headless-chrome-never-exits.html">
+<meta name="description" content="Headless Chrome writes the PDF and then never exits. A timeout truncates the file silently. Wait for the file size to stop changing instead — with the watchdog code, plus the profile-lock and page-count traps.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Headless Chrome writes your PDF, then refuses to exit">
+<meta property="og:description" content="Headless Chrome writes the PDF and then never exits. A timeout truncates the file silently. Wait for the file size to stop changing instead — with the watchdog code, plus the profile-lock and page-count traps.">
+<meta property="og:url" content="https://notgabriels-sys.github.io/dark-templates-demo/writing/headless-chrome-never-exits.html">
+<meta property="og:image" content="https://notgabriels-sys.github.io/dark-templates-demo/og.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>\n<body><div class="wrap">
+  <a class="back" href="../">&larr; all demos</a>
+  <h1>Headless Chrome writes your PDF, then refuses to exit</h1>
+  <div class="meta">August 2026 &middot; on a hang that quietly truncates files</div>
+
+  <p>Rendering HTML to PDF from a script looks like it should be one line:</p>
+
+<pre>chrome --headless --print-to-pdf=out.pdf page.html</pre>
+
+  <p>It works. The file appears. And then the command <strong>sits there forever</strong>. Your build
+  hangs, your CI job times out, and the obvious fix quietly corrupts your output.</p>
+
+  <h2>The obvious fix is the bug</h2>
+
+  <p>Everyone reaches for the same thing:</p>
+
+<pre>timeout 30 chrome --headless --print-to-pdf=out.pdf page.html</pre>
+
+  <p>This is worse than the hang, because it fails <em>silently</em>. Chrome writes the PDF
+  incrementally. If the timer fires while bytes are still going out, you get a file that exists,
+  has a plausible size, and opens in most viewers &mdash; <strong>missing its last pages</strong>.
+  Nothing errors. Nothing warns you. You find out when a client asks where page 9 went.</p>
+
+  <div class="note"><b>Why a fixed wait can't work.</b> Too short truncates. Too long wastes the
+  difference on every single render. And the right number is not a property of your script &mdash;
+  it depends on the page, the fonts, the machine, and what else is running.</div>
+
+  <h2>Wait for the file, not the clock</h2>
+
+  <p>The reliable signal is not "has enough time passed" but <strong>"has the file stopped
+  growing"</strong>. Poll the size; when it holds steady across consecutive checks and the file is
+  non-empty, the write is done and you can kill the process:</p>
+
+<pre>def run_chrome(chrome, args, out, timeout=60, settle=3):
+    """Chrome headless does not exit after writing output.
+       Size-stability is the reliable signal."""
+    proc = subprocess.Popen([chrome, *args],
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL)
+    stable, last, deadline = 0, -1, time.time() + timeout
+    while time.time() &lt; deadline:
+        if proc.poll() is not None:      # exited on its own
+            break
+        size = os.path.getsize(out) if os.path.exists(out) else 0
+        stable = stable + 1 if size == last and size &gt; 0 else 0
+        if stable &gt;= settle:             # steady across N polls
+            break
+        last = size
+        time.sleep(0.4)
+    proc.terminate()
+    try: proc.wait(timeout=5)
+    except subprocess.TimeoutExpired: proc.kill()</pre>
+
+  <p>Three consecutive stable polls at 0.4&nbsp;s is a good default: fast pages finish in about a
+  second, and a slow one takes as long as it takes without a magic number in your build script.</p>
+
+  <h2>Two more that will catch you</h2>
+
+  <p><strong>Give every run its own profile directory.</strong> Without one, a second invocation
+  finds the first Chrome's lock, attaches to that instance instead of starting a new one, and
+  returns immediately &mdash; having rendered nothing. Your script reports success and the output
+  file is whatever the previous run left behind:</p>
+
+<pre>--user-data-dir=$(mktemp -d)</pre>
+
+  <p><strong>Animations render mid-flight.</strong> A page with a CSS transition or a chart that
+  animates in will be captured wherever it happened to be. Freeze it:</p>
+
+<pre>--virtual-time-budget=2000 --force-prefers-reduced-motion</pre>
+
+  <h2>And don't trust the page count</h2>
+
+  <p>Having fixed the truncation, I wanted to assert the page count in CI. The obvious approach
+  reads the first <code>/Count</code> in the PDF and compares it. Mine reported <strong>8 pages for
+  an 11-page document</strong>, and I nearly "fixed" a document that was already correct.</p>
+
+  <p>PDF page trees can nest. The first <code>/Count</code> you encounter may describe a
+  <em>subtree</em>, not the document. Count the leaves instead:</p>
+
+<pre>pages = data.count(b'/Type /Page') - data.count(b'/Type /Pages')</pre>
+
+  <div class="note">The general lesson, and the one that cost me the most: <b>a verification step
+  that is subtly wrong is worse than no verification</b>, because it spends your trust. Both bugs
+  here produce confident, plausible, wrong answers rather than errors.</div>
+
+  <h2>All of it, packaged</h2>
+
+  <p>The watchdog, the profile isolation, the motion freezing and exact-size PNG rendering are in a
+  single-file tool with no dependencies beyond a Chrome you already have.</p>
+
+  <div class="cta">
+    <h3>htmlshot</h3>
+    <p>Render HTML to exact-size PNGs and PDFs from the command line. One Python file, MIT.</p>
+    <div class="row">
+      <a class="btn" href="https://github.com/notgabriels-sys/htmlshot">Get it on GitHub</a>
+      <a class="btn" href="contrast-floors.html">Read: 50 themes, 4 real contrast failures</a>
+      <a class="btn" href="../">See what it renders</a>
+    </div>
+  </div>
+
+  <footer>
+    Written while building a set of print-clean HTML document templates &mdash; the PDFs on
+    <a href="../">the demo hub</a> are produced by exactly this pipeline.
+  </footer>
+</div></body>
+</html>
