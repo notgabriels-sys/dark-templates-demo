@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark States Kit — empty states &amp; skeleton loaders</title>
+<link rel="stylesheet" href="states.css">
+<style>
+body{background:var(--st-bg);color:var(--st-ink);font-family:var(--st-font);line-height:1.6;
+  margin:0;padding:56px 22px}
+*{box-sizing:border-box}
+.wrap{max-width:1000px;margin:0 auto}
+h1{font-size:34px;font-weight:800;letter-spacing:-1.1px;margin:0}
+.sub{margin-top:12px;color:var(--st-mute);font-size:16.5px;max-width:66ch}
+h2{margin:46px 0 0;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--st-accent);font-weight:800}
+.hint{margin-top:6px;color:var(--st-faint);font-size:13.5px}
+.grid{margin-top:16px;display:grid;gap:14px}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+pre{margin-top:14px;background:#12141a;border:1px solid var(--st-hair);border-radius:10px;
+  padding:14px 16px;overflow-x:auto;font-family:var(--st-mono);font-size:12.5px}
+code{font-family:var(--st-mono);font-size:12.5px;background:#12141a;border:1px solid var(--st-hair);
+  border-radius:5px;padding:1px 6px}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--st-hair);
+  color:var(--st-faint);font-size:13px}
+</style></head>
+<body class="st"><div class="wrap">
+  <h1>Dark States Kit</h1>
+  <p class="sub">The screens every app needs and nobody designs: empty states, skeleton loaders,
+  error and offline states, and the banners in between. Pure CSS — no JavaScript, no dependencies —
+  and the motion stops for anyone who asks it to.</p>
+
+  <h2>Empty states</h2>
+  <div class="grid two">
+    <div class="st-empty is-first">
+      <div class="st-art"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+      <h3>No projects yet</h3>
+      <p>Projects hold your forecasts and the people who can see them. Make the first one and
+      you can invite the rest of the team.</p>
+      <div class="st-actions">
+        <a class="st-btn primary" href="#">New project</a>
+        <a class="st-btn quiet" href="#">Import instead</a>
+      </div>
+    </div>
+
+    <div class="st-empty">
+      <div class="st-art"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
+      <h3>No results for “nightshift”</h3>
+      <p>Nothing matched that search. Try a shorter term, or clear the filters — three are active.</p>
+      <div class="st-actions">
+        <a class="st-btn" href="#">Clear filters</a>
+      </div>
+    </div>
+
+    <div class="st-empty is-error">
+      <div class="st-art"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <h3>Couldn't load your data</h3>
+      <p>The request failed after three attempts. This is usually temporary — if it keeps
+      happening, the status page will say so.</p>
+      <div class="st-actions">
+        <a class="st-btn primary" href="#">Try again</a>
+        <a class="st-btn quiet" href="#">Status page</a>
+      </div>
+    </div>
+
+    <div class="st-empty is-warn">
+      <div class="st-art"><svg viewBox="0 0 24 24"><path d="M3 3l18 18M8.5 5.5A9 9 0 0 1 21 12M3 12a9 9 0 0 1 3.5-5"/><path d="M12 19v.5"/></svg></div>
+      <h3>You're offline</h3>
+      <p>Changes you make now are saved locally and will sync as soon as the connection returns.</p>
+      <div class="st-actions"><a class="st-btn" href="#">Retry now</a></div>
+    </div>
+
+    <div class="st-empty is-good">
+      <div class="st-art"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h3>Inbox zero</h3>
+      <p>Everything is handled. New items land here as they arrive.</p>
+    </div>
+
+    <div class="st-empty">
+      <div class="st-art"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+      <h3>You don't have access</h3>
+      <p>This workspace is private. Ask an admin for an invite — they'll see your request straight away.</p>
+      <div class="st-actions"><a class="st-btn" href="#">Request access</a></div>
+    </div>
+  </div>
+
+  <h2>Skeleton loaders</h2>
+  <p class="hint">Shapes only — never a spinner where the layout is already known.</p>
+  <div class="grid three">
+    <div class="sk-card">
+      <span class="sk sk-thumb"></span>
+      <span class="sk sk-title"></span>
+      <span class="sk sk-text w90"></span>
+      <span class="sk sk-text w75"></span>
+      <span class="sk sk-text w45"></span>
+    </div>
+    <div class="sk-card">
+      <div class="sk-row">
+        <span class="sk sk-avatar"></span>
+        <div class="sk-lines">
+          <span class="sk sk-text w60"></span>
+          <span class="sk sk-text w30"></span>
+        </div>
+      </div>
+      <div style="height:16px"></div>
+      <span class="sk sk-text w90"></span>
+      <span class="sk sk-text w75"></span>
+      <div style="height:14px"></div>
+      <span class="sk sk-btn"></span>
+    </div>
+    <div class="sk-card">
+      <span class="sk sk-title"></span>
+      <div class="sk-chart">
+        <span class="sk" style="height:40%"></span><span class="sk" style="height:65%"></span>
+        <span class="sk" style="height:52%"></span><span class="sk" style="height:80%"></span>
+        <span class="sk" style="height:70%"></span><span class="sk" style="height:95%"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="sk-card">
+      <span class="sk sk-title"></span>
+      <table class="sk-table">
+        <tr><td style="width:34%"><span class="sk sk-text w90" style="margin:0"></span></td>
+            <td style="width:22%"><span class="sk sk-text w60" style="margin:0"></span></td>
+            <td style="width:22%"><span class="sk sk-text w45" style="margin:0"></span></td>
+            <td><span class="sk sk-chip"></span></td></tr>
+        <tr><td><span class="sk sk-text w75" style="margin:0"></span></td>
+            <td><span class="sk sk-text w45" style="margin:0"></span></td>
+            <td><span class="sk sk-text w60" style="margin:0"></span></td>
+            <td><span class="sk sk-chip"></span></td></tr>
+        <tr><td><span class="sk sk-text w90" style="margin:0"></span></td>
+            <td><span class="sk sk-text w30" style="margin:0"></span></td>
+            <td><span class="sk sk-text w45" style="margin:0"></span></td>
+            <td><span class="sk sk-chip"></span></td></tr>
+      </table>
+      <span class="st-sr" role="status" aria-live="polite">Loading results</span>
+    </div>
+  </div>
+
+  <h2>Banners</h2>
+  <div class="grid two">
+    <div class="st-banner info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.5"/></svg>
+      <div class="st-body"><strong>Scheduled maintenance</strong>
+      <p>Sunday 02:00–04:00 UTC. Reports will be read-only during the window.</p></div></div>
+    <div class="st-banner good"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      <div class="st-body"><strong>Import finished</strong>
+      <p>1,482 rows added. 3 were skipped as duplicates.</p></div></div>
+    <div class="st-banner warn"><svg viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>
+      <div class="st-body"><strong>Trial ends in 3 days</strong>
+      <p>Add a payment method to keep your forecasts running.</p></div></div>
+    <div class="st-banner bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      <div class="st-body"><strong>Two connectors are failing</strong>
+      <p>NetSuite and Shopify need re-authorising. Data is stale since 14:20.</p></div></div>
+  </div>
+
+  <h2>Progress</h2>
+  <div class="grid three">
+    <div class="sk-card"><div style="font-size:13.5px;color:var(--st-mute);margin-bottom:10px">Determinate — 68%</div>
+      <div class="st-progress"><span style="width:68%"></span></div></div>
+    <div class="sk-card"><div style="font-size:13.5px;color:var(--st-mute);margin-bottom:10px">Indeterminate</div>
+      <div class="st-progress indet"><span></span></div></div>
+    <div class="sk-card" style="display:flex;align-items:center;gap:12px">
+      <span class="st-spinner"></span>
+      <span style="font-size:13.5px;color:var(--st-mute)">Syncing…</span></div>
+  </div>
+
+  <h2>Using it</h2>
+  <pre>&lt;link rel="stylesheet" href="states.css"&gt;
+
+&lt;div class="st-empty is-first"&gt;
+  &lt;div class="st-art"&gt;&lt;svg&gt;…&lt;/svg&gt;&lt;/div&gt;
+  &lt;h3&gt;No projects yet&lt;/h3&gt;
+  &lt;p&gt;Say what this is for, and what happens next.&lt;/p&gt;
+  &lt;div class="st-actions"&gt;&lt;a class="st-btn primary"&gt;New project&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  <p class="sub" style="margin-top:12px">Put <code>.st</code> on a wrapper (or
+  <code>&lt;body&gt;</code>) so the tokens resolve. Flavours: <code>is-first</code>,
+  <code>is-error</code>, <code>is-warn</code>, <code>is-good</code>.</p>
+
+  <footer>Dark States Kit · empty states, skeletons, banners, progress · pure CSS,
+  <code>prefers-reduced-motion</code> respected throughout.</footer>
+</div></body></html>

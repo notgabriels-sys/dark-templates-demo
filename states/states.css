@@ -1,0 +1,139 @@
+/* Dark States Kit — empty states, skeleton loaders, error and success states.
+   Pure CSS. No JavaScript required, no dependencies.
+   Motion respects prefers-reduced-motion: the shimmer stops, nothing else changes. */
+
+:root{
+  --st-bg:#0b0c0e;
+  --st-surface:#141619;
+  --st-raised:#1a1e24;
+  --st-hair:#252a33;
+  --st-ink:#ECEEF0;
+  --st-mute:#98a0ab;
+  --st-faint:#67707c;
+  --st-accent:#4C82F7;
+  --st-good:#3FB984;
+  --st-warn:#E0A33E;
+  --st-bad:#E8455F;
+  --st-radius:12px;
+  --st-font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --st-mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+
+.st{font-family:var(--st-font);color:var(--st-ink);box-sizing:border-box}
+.st *,.st *::before,.st *::after{box-sizing:inherit}
+
+/* ---------------------------------------------------------------
+   EMPTY STATES
+   --------------------------------------------------------------- */
+.st-empty{
+  background:var(--st-surface);border:1px solid var(--st-hair);border-radius:var(--st-radius);
+  padding:44px 32px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.st-empty.compact{padding:26px 22px}
+.st-empty .st-art{
+  width:64px;height:64px;border-radius:16px;display:grid;place-items:center;margin-bottom:14px;
+  border:1px solid var(--st-hair);background:var(--st-raised);color:var(--st-faint);
+}
+.st-empty .st-art svg{width:28px;height:28px;stroke:currentColor;fill:none;
+  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.st-empty h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.3px}
+.st-empty p{margin:6px 0 0;font-size:14px;line-height:1.6;color:var(--st-mute);max-width:44ch}
+.st-empty .st-actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* state flavours — the art tile picks up the meaning */
+.st-empty.is-error .st-art{border-color:color-mix(in srgb,var(--st-bad) 40%,var(--st-hair));
+  color:var(--st-bad)}
+.st-empty.is-warn .st-art{border-color:color-mix(in srgb,var(--st-warn) 40%,var(--st-hair));
+  color:var(--st-warn)}
+.st-empty.is-good .st-art{border-color:color-mix(in srgb,var(--st-good) 40%,var(--st-hair));
+  color:var(--st-good)}
+.st-empty.is-first .st-art{border-color:color-mix(in srgb,var(--st-accent) 40%,var(--st-hair));
+  color:var(--st-accent)}
+
+/* buttons, only as much as a state needs */
+.st-btn{appearance:none;border:1px solid var(--st-hair);background:var(--st-raised);
+  color:var(--st-ink);font:inherit;font-size:14px;font-weight:600;padding:9px 16px;
+  border-radius:9px;cursor:pointer;text-decoration:none;display:inline-block;line-height:1.2}
+.st-btn:hover{border-color:var(--st-accent)}
+.st-btn.primary{background:var(--st-accent);border-color:var(--st-accent);color:#0b0c0e}
+.st-btn.primary:hover{filter:brightness(1.08)}
+.st-btn.quiet{background:transparent;border-color:transparent;color:var(--st-mute)}
+.st-btn.quiet:hover{color:var(--st-ink);border-color:var(--st-hair)}
+
+/* ---------------------------------------------------------------
+   SKELETON LOADERS
+   --------------------------------------------------------------- */
+.sk{background:var(--st-hair);border-radius:6px;position:relative;overflow:hidden;display:block}
+.sk::after{
+  content:"";position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  animation:sk-shimmer 1.4s infinite;
+}
+@keyframes sk-shimmer{100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){
+  .sk::after{animation:none}
+  .sk{background:linear-gradient(90deg,var(--st-hair),var(--st-raised),var(--st-hair))}
+}
+
+.sk-text{height:11px;margin-bottom:9px}
+.sk-text:last-child{margin-bottom:0}
+.sk-text.w90{width:90%} .sk-text.w75{width:75%} .sk-text.w60{width:60%}
+.sk-text.w45{width:45%} .sk-text.w30{width:30%}
+.sk-title{height:17px;width:52%;margin-bottom:14px;border-radius:7px}
+.sk-avatar{width:40px;height:40px;border-radius:50%;flex:0 0 auto}
+.sk-thumb{width:100%;aspect-ratio:16/9;border-radius:9px;margin-bottom:14px}
+.sk-chip{height:22px;width:70px;border-radius:999px}
+.sk-btn{height:36px;width:104px;border-radius:9px}
+
+.sk-card{background:var(--st-surface);border:1px solid var(--st-hair);
+  border-radius:var(--st-radius);padding:18px}
+.sk-row{display:flex;align-items:center;gap:14px}
+.sk-row .sk-lines{flex:1;min-width:0}
+
+/* skeleton table */
+.sk-table{width:100%;border-collapse:collapse}
+.sk-table td{padding:13px 16px 13px 0;border-bottom:1px solid var(--st-hair)}
+.sk-table tr:last-child td{border-bottom:0}
+
+/* skeleton chart — bars of varied height, no data implied */
+.sk-chart{display:flex;align-items:flex-end;gap:8px;height:120px}
+.sk-chart .sk{flex:1;border-radius:5px 5px 0 0}
+
+/* ---------------------------------------------------------------
+   INLINE FEEDBACK — banners that sit above content
+   --------------------------------------------------------------- */
+.st-banner{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;
+  border:1px solid var(--st-hair);border-left-width:3px;border-radius:10px;
+  background:var(--st-surface)}
+.st-banner svg{width:18px;height:18px;flex:0 0 auto;margin-top:1px;stroke:currentColor;
+  fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.st-banner .st-body{min-width:0}
+.st-banner strong{display:block;font-size:14px;font-weight:650}
+.st-banner p{margin:3px 0 0;font-size:13.5px;line-height:1.55;color:var(--st-mute)}
+.st-banner.info{border-left-color:var(--st-accent);color:var(--st-accent)}
+.st-banner.good{border-left-color:var(--st-good);color:var(--st-good)}
+.st-banner.warn{border-left-color:var(--st-warn);color:var(--st-warn)}
+.st-banner.bad {border-left-color:var(--st-bad);color:var(--st-bad)}
+.st-banner strong{color:var(--st-ink)}
+
+/* ---------------------------------------------------------------
+   PROGRESS
+   --------------------------------------------------------------- */
+.st-progress{height:6px;background:var(--st-hair);border-radius:3px;overflow:hidden}
+.st-progress > span{display:block;height:100%;background:var(--st-accent);border-radius:3px}
+.st-progress.indet > span{width:35%;animation:st-slide 1.3s ease-in-out infinite}
+@keyframes st-slide{0%{margin-left:-35%}100%{margin-left:100%}}
+@media (prefers-reduced-motion:reduce){.st-progress.indet > span{animation:none;width:100%;opacity:.5}}
+
+.st-spinner{width:22px;height:22px;border-radius:50%;
+  border:2.5px solid var(--st-hair);border-top-color:var(--st-accent);
+  animation:st-spin .8s linear infinite;display:inline-block}
+@keyframes st-spin{100%{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .st-spinner{animation:none;border-top-color:var(--st-hair);
+    border-right-color:var(--st-accent)}
+}
+
+/* screen-reader text, for announcing a loading state properly */
+.st-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
