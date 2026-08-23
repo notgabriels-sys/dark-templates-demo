@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Charts — CSS &amp; SVG, no library</title>
+<link rel="stylesheet" href="charts.css">
+<script src="charts.js" defer></script>
+<style>
+body{background:var(--chart-bg);color:var(--chart-ink);font-family:var(--chart-font);
+  line-height:1.6;padding:56px 22px;margin:0}
+*{box-sizing:border-box}
+.wrap{max-width:1040px;margin:0 auto}
+h1{font-size:34px;font-weight:800;letter-spacing:-1.1px;margin:0}
+.sub{margin-top:12px;color:var(--chart-mute);font-size:16.5px;max-width:66ch}
+h2{margin:44px 0 0;font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;
+   color:var(--c1);font-weight:800}
+.row{margin-top:16px;display:grid;gap:14px}
+.row.two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.row.three{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+code{font-family:var(--chart-mono);font-size:12.5px;background:#12151a;
+  border:1px solid var(--chart-hair);border-radius:5px;padding:1px 6px}
+pre{margin-top:12px;background:#12151a;border:1px solid var(--chart-hair);border-radius:10px;
+  padding:14px 16px;overflow-x:auto;font-family:var(--chart-mono);font-size:12.5px;color:var(--chart-ink)}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13.5px}
+td{padding:8px 0;border-bottom:1px solid var(--chart-hair);color:var(--chart-mute)}
+td:first-child{color:var(--chart-ink)}
+td.num{text-align:right;font-family:var(--chart-mono)}
+.swaps{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.swaps button{background:var(--chart-surface);border:1px solid var(--chart-hair);color:var(--chart-mute);
+  border-radius:999px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer}
+.swaps button:hover,.swaps button.on{border-color:var(--c1);color:var(--chart-ink)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--chart-hair);
+  color:var(--chart-faint);font-size:13px}
+</style></head>
+<body><div class="wrap">
+  <h1>Dark Charts</h1>
+  <p class="sub">Line, area, bars, donut, sparkline, heatmap, ranked bars and stat tiles — as CSS
+  and inline SVG. About 6 KB of JavaScript, no charting library, no build step. Every chart reads
+  the same six colour tokens, so one palette swap recolours all of them.</p>
+
+  <div class="swaps" id="swaps"></div>
+
+  <h2>Stat tiles</h2>
+  <div class="stats">
+    <div class="stat"><div class="k">Revenue</div><div class="v">€48,290</div><div class="d up">↑ 12.4%</div></div>
+    <div class="stat"><div class="k">Active users</div><div class="v">3,914</div><div class="d up">↑ 8.1%</div></div>
+    <div class="stat"><div class="k">Churn</div><div class="v">1.8%</div><div class="d down">↓ 0.3%</div></div>
+    <div class="stat"><div class="k">Avg. session</div><div class="v">6m 12s</div><div class="d up">↑ 41s</div></div>
+  </div>
+
+  <h2>Line and area</h2>
+  <div class="row two">
+    <div class="chart">
+      <div class="chart-head"><div><div class="chart-title">Revenue</div>
+        <div class="chart-sub">Daily, last 30 days</div></div></div>
+      <div class="chart-value">€48,290</div><div class="chart-delta up">↑ 12.4% vs previous period</div>
+      <div data-chart="line" data-values="12,15,14,19,17,22,20,26,24,31,28,35,33,41,38,46,44,52,49,58" data-series="1" data-height="150"></div>
+    </div>
+    <div class="chart">
+      <div class="chart-head"><div><div class="chart-title">Signups</div>
+        <div class="chart-sub">Weekly cohort</div></div></div>
+      <div class="chart-value">3,914</div><div class="chart-delta up">↑ 8.1%</div>
+      <div data-chart="line" data-values="30,28,34,31,38,36,44,41,49,47,55,52,61,58,66" data-series="2" data-height="150"></div>
+    </div>
+  </div>
+
+  <h2>Bars and donuts</h2>
+  <div class="row three">
+    <div class="chart">
+      <div class="chart-title">Orders per day</div>
+      <div data-chart="bars" data-values="14,22,18,31,27,35,24,29,38,33,41,36" data-series="1" data-height="230"></div>
+    </div>
+    <div class="chart" style="text-align:center">
+      <div class="chart-title" style="text-align:left">Storage used</div>
+      <div data-chart="donut" data-values="68" data-label="of 500 GB" data-series="3"></div>
+    </div>
+    <div class="chart" style="text-align:center">
+      <div class="chart-title" style="text-align:left">Uptime</div>
+      <div data-chart="donut" data-values="99" data-label="30 days" data-series="2"></div>
+    </div>
+  </div>
+
+  <h2>Ranked bars</h2>
+  <div class="chart">
+    <div class="chart-title">Top sources</div><div class="chart-sub">By sessions</div>
+    <div class="ranked">
+      <div class="row"><div class="lab">Direct</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="val">1,842</div></div>
+      <div class="row"><div class="lab">Search</div><div class="track"><div class="fill" style="width:78%"></div></div><div class="val">1,436</div></div>
+      <div class="row"><div class="lab">Referral</div><div class="track"><div class="fill" style="width:50%"></div></div><div class="val">921</div></div>
+      <div class="row"><div class="lab">Social</div><div class="track"><div class="fill" style="width:28%"></div></div><div class="val">514</div></div>
+      <div class="row"><div class="lab">Email</div><div class="track"><div class="fill" style="width:17%"></div></div><div class="val">312</div></div>
+    </div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>Sessions</span></div>
+  </div>
+
+  <h2>Sparklines in a table</h2>
+  <div class="chart">
+    <table>
+      <tr><td>Berlin</td><td><span data-chart="spark" data-values="4,6,5,9,8,12,11,15" data-trend="up" data-fill="true"></span></td><td class="num">+18%</td></tr>
+      <tr><td>Hamburg</td><td><span data-chart="spark" data-values="12,11,13,10,9,8,6,5" data-trend="down"></span></td><td class="num">−22%</td></tr>
+      <tr><td>Munich</td><td><span data-chart="spark" data-values="7,8,7,9,8,10,9,11" data-trend="up"></span></td><td class="num">+6%</td></tr>
+    </table>
+  </div>
+
+  <h2>Heatmap calendar</h2>
+  <div class="chart">
+    <div class="chart-title">Commits</div><div class="chart-sub">Last 12 weeks</div>
+    <div class="heat" id="heat" style="margin-top:14px"></div>
+    <div class="legend"><span>Less</span>
+      <span><i style="background:var(--chart-hair)"></i></span>
+      <span><i style="background:color-mix(in srgb,var(--c2) 52%,var(--chart-hair))"></i></span>
+      <span><i style="background:var(--c2)"></i></span><span>More</span></div>
+  </div>
+
+  <h2>How you use it</h2>
+  <pre>&lt;link rel="stylesheet" href="charts.css"&gt;
+&lt;script src="charts.js" defer&gt;&lt;/script&gt;
+
+&lt;div class="chart"&gt;
+  &lt;div class="chart-title"&gt;Revenue&lt;/div&gt;
+  &lt;div data-chart="line" data-values="12,19,17,26,24,35,33,46"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+  <p class="sub" style="margin-top:12px">Or call it directly:
+  <code>el.innerHTML = DarkCharts.line([12,19,17,26])</code></p>
+
+  <footer>Dark Charts · CSS + ~6 KB of JavaScript · no dependencies, no build step.</footer>
+</div>
+
+<script>
+// heatmap demo data
+(function(){
+  var h=document.getElementById('heat'), out='';
+  for(var i=0;i<84;i++){ var l=[0,0,1,1,2,2,3,4][Math.floor(Math.random()*8)]; out+='<i data-l="'+l+'"></i>'; }
+  h.innerHTML=out;
+})();
+// palette switcher
+var PAL={
+ 'Cobalt':['#4C82F7','#3FB984','#E0A33E','#E8455F','#A97BFF','#3FC8D6'],
+ 'Absinthe':['#C0D648','#33D17A','#E3B341','#E5484D','#C86AD8','#3FC8B0'],
+ 'Ultraviolet':['#9D6BFF','#3FB984','#E0A33E','#E8455F','#C6A8FF','#3FC8D6'],
+ 'Coral':['#FF7A66','#3FB984','#E0A33E','#E8455F','#A97BFF','#3FC8D6'],
+ 'Fathom':['#3FC8D6','#3FB984','#E0A33E','#E8455F','#A97BFF','#4C82F7']
+};
+var sw=document.getElementById('swaps');
+Object.keys(PAL).forEach(function(name,i){
+  var b=document.createElement('button'); b.textContent=name;
+  b.onclick=function(){
+    PAL[name].forEach(function(c,n){document.documentElement.style.setProperty('--c'+(n+1),c);});
+    [...sw.children].forEach(function(x){x.classList.remove('on');}); b.classList.add('on');
+  };
+  if(i===0) b.classList.add('on');
+  sw.appendChild(b);
+});
+</script>
+</body></html>
