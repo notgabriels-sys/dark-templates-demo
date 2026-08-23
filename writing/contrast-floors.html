@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Every one of my 50 themes failed a contrast check</title>
+<meta name="description" content="I built a WCAG contrast checker to validate 50 dark themes. It failed four colours in all fifty. Here is what the naive check gets wrong, and the floors that actually matter.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Every one of my 50 themes failed a contrast check">
+<meta property="og:description" content="A naive contrast check compares every colour to the background — including the backgrounds. Here is a check that knows what each colour is for.">
+<meta property="og:url" content="https://notgabriels-sys.github.io/dark-templates-demo/writing/contrast-floors.html">
+<meta property="og:image" content="https://notgabriels-sys.github.io/dark-templates-demo/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#08090b;--card:#101216;--hair:#252b34;--ink:#F2F4F6;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
+--good:#3FB984;--bad:#E8455F;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;padding:64px 22px}
+.wrap{max-width:680px;margin:0 auto}
+.back{font-size:14px;color:var(--mute);text-decoration:none}
+.back:hover{color:var(--ink)}
+h1{margin-top:22px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1.1}
+.meta{margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.4px}
+h2{margin-top:44px;font-size:21px;font-weight:750;letter-spacing:-.5px}
+p{margin-top:16px;color:var(--mute);font-size:16.5px}
+p strong,strong{color:var(--ink);font-weight:650}
+ul{margin:16px 0 0 20px;color:var(--mute);font-size:16.5px}
+li{margin-bottom:7px}
+pre{margin-top:18px;background:#12141a;border:1px solid var(--hair);border-radius:10px;
+ padding:15px 17px;overflow-x:auto;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1.6}
+code{font-family:var(--mono);font-size:14px;background:#12141a;border:1px solid var(--hair);
+ border-radius:5px;padding:1px 6px}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15.5px;display:block;overflow-x:auto}
+th{text-align:left;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--faint);
+ font-weight:800;padding:0 16px 9px 0;border-bottom:1px solid var(--hair);white-space:nowrap}
+td{padding:11px 16px 11px 0;border-bottom:1px solid var(--hair);color:var(--mute);vertical-align:top}
+td:first-child{color:var(--ink);font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.pass{color:var(--good)} .fail{color:var(--bad)}
+.note{margin-top:22px;padding:16px 18px;border:1px solid var(--hair);border-left:3px solid var(--acc);
+ border-radius:8px;font-size:15.5px;color:var(--mute)}
+.note b{color:var(--ink)}
+a{color:var(--acc)}
+.cta{margin-top:44px;padding:22px;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+.cta h3{font-size:17px;font-weight:750}
+.cta p{margin-top:8px;font-size:15px}
+.cta .row{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.cta a.btn{display:inline-block;padding:8px 15px;border:1px solid var(--hair);border-radius:8px;
+ color:var(--ink);text-decoration:none;font-size:14.5px}
+.cta a.btn:hover{border-color:var(--acc)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+</style>
+</head>
+<body><div class="wrap">
+  <a class="back" href="../">← all demos</a>
+  <h1>Every one of my 50 themes failed a contrast check</h1>
+  <div class="meta">August 2026 · on measuring dark themes instead of squinting at them</div>
+
+  <p>I generate dark themes — for terminals, editors, Obsidian, templates. I had just shipped
+  fifty Obsidian themes, all built from the same palette file, all looking fine. Then I wrote a
+  small contrast checker to validate them.</p>
+
+  <p><strong>It failed four colours in all fifty themes.</strong> Faint text, code comments,
+  checkbox borders, and in about forty of them the red used for errors. None of it looked wrong.
+  All of it was below the floor.</p>
+
+  <h2>The first version of the checker was worse than useless</h2>
+
+  <p>My first pass did the obvious thing: take every colour in the theme, compute its contrast
+  against the background, flag anything under 4.5:1. Running it on a good theme produced this:</p>
+
+<pre>FAIL  Deep Field/theme.css  (63 colours vs --background-primary-alt)
+    ✗ --background-modifier-border        1.75:1   needs 4.5
+    ✗ --background-modifier-hover         1.37:1   needs 4.5
+    ✗ --background-secondary              1.12:1   needs 4.5
+    ✗ --code-background                   1.12:1   needs 4.5
+    ✗ --checkbox-border-color             2.97:1   needs 4.5
+    … 9 more</pre>
+
+  <p>Most of those "failures" are <em>backgrounds</em>. Asking whether a surface has enough
+  contrast against another surface, at a text threshold, is not a question with a meaningful
+  answer. The two real problems in that list were buried under nine that weren't problems at all.</p>
+
+  <p>A check that cries wolf gets switched off. That is the failure mode worth avoiding.</p>
+
+  <h2>What a colour is for decides how it should be checked</h2>
+
+  <p>WCAG does not have one threshold. It has several, and they apply to different things:</p>
+
+  <table>
+    <thead><tr><th>Role</th><th>Floor</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>body text</td><td>7:1</td><td>WCAG AAA. Prose you read for minutes at a time.</td></tr>
+      <tr><td>accents, links, syntax</td><td>4.5:1</td><td>WCAG AA. Still text, read in shorter bursts.</td></tr>
+      <tr><td>comments, muted, faint</td><td>3.5:1</td><td>Deliberately secondary, but still has to be readable.</td></tr>
+      <tr><td>borders, icons, checkboxes</td><td>3:1</td><td>WCAG 1.4.11, non-text contrast.</td></tr>
+      <tr><td>backgrounds, surfaces, hovers</td><td><em>skipped</em></td><td>Nothing to compare against.</td></tr>
+    </tbody>
+  </table>
+
+  <p>Classify first, then check. The same fifty themes, checked this way, produced four real
+  failures each instead of a wall of noise — and those four were worth fixing.</p>
+
+  <h2>Fixing it: lift, don't redesign</h2>
+
+  <p>The failures had two causes. Some were mine: I derived faint text as
+  <code>mix(muted, background, 0.45)</code>, which is simply too dark. Some were inherited: several
+  palette reds sit below 4.5:1 on a dark background, and always did.</p>
+
+  <p>You do not need to redesign a palette to fix either. You need each colour to clear its own
+  floor against its own background — so blend it toward white until it does:</p>
+
+<pre>def lift(colour, bg, target):
+    if contrast(colour, bg) >= target:
+        return colour
+    toward = WHITE if luminance(bg) < 0.5 else BLACK
+    for i in range(1, 101):
+        cand = mix(colour, toward, i / 100)
+        if contrast(cand, bg) >= target:
+            return cand
+    return cand   # as close as this hue can get</pre>
+
+  <p>Hue survives. Character survives. The colour moves just far enough to be readable and stops.
+  Run it at build time and a failing colour cannot ship.</p>
+
+  <p>After rebuilding all fifty with lifting applied: <strong class="pass">1,952 colours checked,
+  zero below floor.</strong></p>
+
+  <div class="note">
+    <b>The part I did not expect.</b> Later I ran the same checker over a component library I
+    had written that morning, and it flagged <code>--st-raised</code> — an elevated surface, not
+    text. My skip list covered <code>surface</code> and <code>background</code> but not
+    <code>raised</code>, <code>card</code>, <code>panel</code> or <code>sunken</code>. The tool
+    was wrong, not the CSS. Using a checker on new work is how you find the checker's blind spots.
+  </div>
+
+  <h2>Three things worth taking away</h2>
+
+  <ul>
+    <li><strong>Eyes are not a contrast check.</strong> Four bad colours survived design review in
+      fifty themes because they looked fine on my screen, at my brightness, with my eyesight.</li>
+    <li><strong>False positives are the real enemy.</strong> A checker that flags backgrounds gets
+      ignored, and then the genuine failures ship too.</li>
+    <li><strong>Put the floor in the build.</strong> A check you have to remember to run is a check
+      that eventually doesn't get run.</li>
+  </ul>
+
+  <div class="cta">
+    <h3>The checker is free</h3>
+    <p>One Python file, no dependencies, exits non-zero in CI. Reads CSS custom properties, VS Code
+    themes, palette JSON, TOML, btop themes and shell files.</p>
+    <div class="row">
+      <a class="btn" href="https://github.com/notgabriels-sys/theme-contrast">theme-contrast on GitHub</a>
+      <a class="btn" href="https://github.com/notgabriels-sys/claude-code-50-dark-themes">50 free dark themes</a>
+      <a class="btn" href="../obsidian/">The 50 Obsidian themes, rebuilt</a>
+    </div>
+  </div>
+
+  <footer>
+    Written after a long day of finding my own bugs ·
+    <a href="../">all live demos</a>
+  </footer>
+</div></body></html>
