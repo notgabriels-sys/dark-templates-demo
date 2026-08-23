@@ -14,3 +14,7 @@ Plain HTML and CSS — no framework, no build step, no dependencies.
 
 The free 50-theme pack for the Claude Code CLI is open source:
 https://github.com/notgabriels-sys/claude-code-50-dark-themes
+
+---
+
+**[Gabriel — Audio Tools + Code →](https://gabriel-tools-and-code.notgabriels960914.chatgpt.site)**
