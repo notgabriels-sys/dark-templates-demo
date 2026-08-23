@@ -4,13 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Every one of my 50 themes failed a contrast check</title>
-<meta name="description" content="I built a WCAG contrast checker to validate 50 dark themes. It failed four colours in all fifty. Here is what the naive check gets wrong, and the floors that actually matter.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Every one of my 50 themes failed a contrast check">
-<meta property="og:description" content="A naive contrast check compares every colour to the background — including the backgrounds. Here is a check that knows what each colour is for.">
-<meta property="og:url" content="https://notgabriels-sys.github.io/dark-templates-demo/writing/contrast-floors.html">
-<meta property="og:image" content="https://notgabriels-sys.github.io/dark-templates-demo/og.png">
-<meta name="twitter:card" content="summary_large_image">
 <style>
 :root{--bg:#08090b;--card:#101216;--hair:#252b34;--ink:#F2F4F6;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
 --good:#3FB984;--bad:#E8455F;
@@ -51,6 +44,15 @@ a{color:var(--acc)}
 .cta a.btn:hover{border-color:var(--acc)}
 footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
 </style>
+
+<link rel="canonical" href="https://notgabriels-sys.github.io/dark-templates-demo/writing/contrast-floors.html">
+<meta name="description" content="A naive contrast check compares every colour to the background — including the backgrounds. What the WCAG floors actually are, and the fix that lifts a colour until it passes.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Every one of my 50 themes failed a contrast check">
+<meta property="og:description" content="A naive contrast check compares every colour to the background — including the backgrounds. What the WCAG floors actually are, and the fix that lifts a colour until it passes.">
+<meta property="og:url" content="https://notgabriels-sys.github.io/dark-templates-demo/writing/contrast-floors.html">
+<meta property="og:image" content="https://notgabriels-sys.github.io/dark-templates-demo/og.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body><div class="wrap">
   <a class="back" href="../">← all demos</a>
