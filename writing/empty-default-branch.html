@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Every one of my 50 themes failed a contrast check</title>
+<style>
+:root{--bg:#08090b;--card:#101216;--hair:#252b34;--ink:#F2F4F6;--mute:#98a0ab;--faint:#6a7280;--acc:#4C82F7;
+--good:#3FB984;--bad:#E8455F;
+--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;padding:64px 22px}
+.wrap{max-width:680px;margin:0 auto}
+.back{font-size:14px;color:var(--mute);text-decoration:none}
+.back:hover{color:var(--ink)}
+h1{margin-top:22px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1.1}
+.meta{margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.4px}
+h2{margin-top:44px;font-size:21px;font-weight:750;letter-spacing:-.5px}
+p{margin-top:16px;color:var(--mute);font-size:16.5px}
+p strong,strong{color:var(--ink);font-weight:650}
+ul{margin:16px 0 0 20px;color:var(--mute);font-size:16.5px}
+li{margin-bottom:7px}
+pre{margin-top:18px;background:#12141a;border:1px solid var(--hair);border-radius:10px;
+ padding:15px 17px;overflow-x:auto;font-family:var(--mono);font-size:13px;color:var(--ink);line-height:1.6}
+code{font-family:var(--mono);font-size:14px;background:#12141a;border:1px solid var(--hair);
+ border-radius:5px;padding:1px 6px}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15.5px;display:block;overflow-x:auto}
+th{text-align:left;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--faint);
+ font-weight:800;padding:0 16px 9px 0;border-bottom:1px solid var(--hair);white-space:nowrap}
+td{padding:11px 16px 11px 0;border-bottom:1px solid var(--hair);color:var(--mute);vertical-align:top}
+td:first-child{color:var(--ink);font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.pass{color:var(--good)} .fail{color:var(--bad)}
+.note{margin-top:22px;padding:16px 18px;border:1px solid var(--hair);border-left:3px solid var(--acc);
+ border-radius:8px;font-size:15.5px;color:var(--mute)}
+.note b{color:var(--ink)}
+a{color:var(--acc)}
+.cta{margin-top:44px;padding:22px;border:1px solid var(--hair);border-radius:12px;background:var(--card)}
+.cta h3{font-size:17px;font-weight:750}
+.cta p{margin-top:8px;font-size:15px}
+.cta .row{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px}
+.cta a.btn{display:inline-block;padding:8px 15px;border:1px solid var(--hair);border-radius:8px;
+ color:var(--ink);text-decoration:none;font-size:14.5px}
+.cta a.btn:hover{border-color:var(--acc)}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--hair);color:var(--faint);font-size:13px}
+</style>
+
+<link rel="canonical" href="https://notgabriels-sys.github.io/dark-templates-demo/writing/empty-default-branch.html">
+<meta name="description" content="A coding agent pushed every project to a codex/ branch and left main without a single commit. Locally everything was fine; to a visitor the repos were blank. How to detect it across a whole account, and the one API call that fixes it.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="42 of my 79 repos looked empty. The code was there the whole time.">
+<meta property="og:description" content="A coding agent pushed every project to a codex/ branch and left main without a single commit. Locally everything was fine; to a visitor the repos were blank. How to detect it across a whole account, and the one API call that fixes it.">
+<meta property="og:url" content="https://notgabriels-sys.github.io/dark-templates-demo/writing/empty-default-branch.html">
+<meta property="og:image" content="https://notgabriels-sys.github.io/dark-templates-demo/og.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body><div class="wrap">
+  <a class="back" href="../">&larr; all demos</a>
+  <h1>42 of my 79 repos looked empty. The code was there the whole time.</h1>
+  <div class="meta">August 2026 &middot; on the difference between pushed and visible</div>
+
+  <p>I have a lot of small tools on GitHub &mdash; offline CLI things for audio, release
+  metadata, studio admin. Each one has a description. Each one built fine locally. I had never
+  once looked at them the way a stranger does.</p>
+
+  <p>When I finally did, <strong>42 of my 79 public repositories rendered as completely empty
+  pages.</strong> No README, no files, nothing. Not broken &mdash; blank.</p>
+
+  <h2>The code had been pushed. It just wasn&rsquo;t on the default branch</h2>
+
+  <p>The agent that built these repos worked the way agents usually do: branch, commit, push.
+  Every project ended up on <code>codex/initial-implementation</code>. What never happened was
+  the last step a human does without thinking &mdash; getting that work onto
+  <code>main</code>.</p>
+
+  <p>So each repo had a <code>main</code> that was the default branch and had
+  <strong>no commits at all</strong>, plus a feature branch holding the entire project. Git was
+  happy. The push succeeded. The work was genuinely public &mdash; you just had to know to switch
+  branches to see any of it.</p>
+
+  <div class="note"><b>Why this hides so well.</b> Your local clone is fine, so nothing feels
+  wrong. GitHub still indexes the repo name, description and topics, so it still turns up in
+  search &mdash; and sends people to a blank page. The only way to notice is to open your own
+  repo logged out, which nobody does.</div>
+
+  <h2>Detecting it across a whole account</h2>
+
+  <p>The cheap test: ask for the git tree of the default branch. If the branch has no commits,
+  the tree 404s. That is one API call per repo and no cloning.</p>
+
+  <pre>for r in $(gh api user/repos --paginate -q '.[].name'); do
+  d=$(gh api repos/OWNER/$r --jq .default_branch)
+  gh api repos/OWNER/$r/git/trees/$d --jq '.tree|length' >/dev/null 2>&amp;1 \
+    || echo "EMPTY DEFAULT BRANCH: $r ($d)"
+done</pre>
+
+  <h2>The fix is one call, and it is not a merge</h2>
+
+  <p>Because <code>main</code> has no commits, there is nothing to merge. You are just creating
+  the ref at the tip of the branch that holds the work:</p>
+
+  <pre>sha=$(gh api repos/OWNER/REPO/commits/codex/initial-implementation --jq .sha)
+gh api -X POST repos/OWNER/REPO/git/refs -f ref=refs/heads/main -f sha="$sha"</pre>
+
+  <p>The feature branch is untouched, so it is reversible. And it exposes nothing new &mdash;
+  that branch was already public. All it changes is which branch a visitor lands on.</p>
+
+  <h2>Two things I found while I was in there</h2>
+
+  <p>Once the repos rendered, the next question was whether they led anywhere.
+  <strong>Only 8 of 79 READMEs linked to anything else I make.</strong> Someone finds a loudness
+  checker, likes it, and hits a dead end. And <strong>only 12 of 80 repos had topics</strong>,
+  which is most of how small tools get found at all.</p>
+
+  <p>Automating the topics taught me something worth repeating: I generated them from each
+  repo&rsquo;s own description with keyword rules, and a dry run caught it tagging a tool called
+  <code>exportheadroom</code> with <em>acoustics</em> &mdash; because &ldquo;head<b>room</b>&rdquo;
+  matched <code>room</code>. It also got <em>live-performance</em> from
+  &ldquo;de<b>live</b>red&rdquo;. Word boundaries fixed both.</p>
+
+  <div class="note"><b>Wrong metadata is worse than none.</b> A missing topic makes a repo
+  invisible. A wrong one makes it visible to exactly the people it will disappoint.</div>
+
+  <h2>What it actually cost</h2>
+
+  <table>
+    <tr><th>&nbsp;</th><th>Before</th><th>After</th></tr>
+    <tr><td>topics</td><td class="fail">12 / 80</td><td class="pass">78 / 80</td></tr>
+    <tr><td>renders code</td><td class="fail">37 / 79</td><td class="pass">77 / 79</td></tr>
+    <tr><td>links onward</td><td class="fail">8 / 79</td><td class="pass">78 / 80</td></tr>
+  </table>
+
+  <p>None of this is clever. It is the unglamorous half of shipping: the work existed, was
+  finished, was public, and was reaching nobody. If you have let an agent create repositories
+  for you, the check above takes about a minute.</p>
+
+  <div class="cta">
+    <h3>Free and open source</h3>
+    <p>Two small tools that came out of this project, both single-file and dependency-free.</p>
+    <div class="row">
+      <a class="btn" href="https://github.com/notgabriels-sys/theme-contrast">theme-contrast &mdash; WCAG checker for colour themes</a>
+      <a class="btn" href="https://github.com/notgabriels-sys/htmlshot">htmlshot &mdash; HTML to exact-size PNG/PDF</a>
+      <a class="btn" href="https://github.com/notgabriels-sys/claude-code-50-dark-themes">50 dark themes for Claude Code</a>
+    </div>
+  </div>
+
+  <footer>
+    <a href="../">Dark templates &mdash; live demos</a> &middot;
+    <a href="https://github.com/notgabriels-sys">all tools on GitHub</a>
+  </footer>
+</div></body></html>
